@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baiwang.custom.common.dao.MGAccountMapper">
+
+    <!--查询主表-->
+    <select id="queryInvTVM"  resultType="com.baiwang.custom.common.model.MGInvoiceModel">
+        SELECT
+        INV_KIND as invoiceCode,INV_NUM as invoiceNum
+        FROM T_SCM_VAT_MAIN
+        WHERE CONCAT(INV_NUM,INV_KIND) in
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            <![CDATA[ CONCAT(#{item.invoiceNum},#{item.invoiceCode})]]>
+        </foreach>
+    </select>
+    <!--查询拓展表-->
+    <select id="queryInvExtend"  resultType="com.baiwang.custom.common.model.MGInvoiceModel">
+        SELECT * FROM T_SCM_VAT_MAIN_EXTEND
+        WHERE CONCAT(INV_NUM,INV_KIND) in
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            <![CDATA[ CONCAT(#{item.invoiceNum},#{item.invoiceCode})]]>
+        </foreach>
+    </select>
+
+    <!--通过凭证号查询拓展表-->
+    <select id="findExtendByVoucherNo"  resultType="com.baiwang.custom.common.model.MGInvoiceModel">
+        SELECT * FROM T_SCM_VAT_MAIN_EXTEND
+        WHERE VOUCHER_NUM = #{finslVoucherNo,jdbcType=VARCHAR}
+    </select>
+     <!--批量插入报账信息 - 默认updateType为0-->
+    <insert id="batchInsertReimburseInfo" parameterType="java.util.List">
+        INSERT INTO T_SCM_VAT_MAIN_EXTEND (ID,INV_KIND,INV_NUM,VOUCHER_NUM,BILL_CODE,VOUCHER_PERIOD,VOUCHER_TAX,VOUCHER_DATE,UPDATE_TYPE)
+      	select T_SCM_VAT_MAIN_EXTEND_SEQ.nextval,t.c1,t.c2,t.c3,t.c4,t.c5,t.c6,t.c7,0 from(
+        <foreach collection="list" item="item" index="index" separator="union all">
+            SELECT 1
+            ,#{item.invoiceCode} c1
+            ,#{item.invoiceNum} c2
+            ,#{item.finslVoucherNo} c3
+            ,#{item.billCode} c4
+            ,#{item.foucherPeriod} c5
+            ,#{item.voucherTax} c6
+            ,#{item.voucherDate} c7
+            FROM DUAL
+        </foreach>)t
+    </insert>
+    <!--单条批量更新-->
+    <update id="updateReimburseInfo" parameterType="com.baiwang.custom.common.model.MGInvoiceModel" >
+        UPDATE T_SCM_VAT_MAIN_EXTEND
+        <set>
+            <if test="finslVoucherNo!=null">
+                VOUCHER_NUM = #{finslVoucherNo},
+            </if>
+            <if test="billCode!=null">
+                BILL_CODE = #{billCode},
+            </if>
+            <if test="foucherPeriod!=null">
+                VOUCHER_PERIOD = #{foucherPeriod},
+            </if>
+            <if test="voucherTax!=null">
+                VOUCHER_TAX = #{voucherTax},
+            </if>
+            <if test="voucherDate!=null">
+                VOUCHER_DATE = #{voucherDate},
+            </if>
+            <if test="updateType!=null">
+                UPDATE_TYPE = #{updateType}
+            </if>
+        </set>
+        WHERE INV_KIND = #{invoiceCode,jdbcType=VARCHAR} AND INV_NUM = #{invoiceNum,jdbcType=VARCHAR}
+    </update>
+    <!--批量更新报账信息 可能有bug-->
+    <update id="batchUpdateReimburseInfo" parameterType="java.util.List">
+        update T_SCM_VAT_MAIN_EXTEND
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="VOUCHER_NUM =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.finslVoucherNo!=null">
+                        when INV_KIND = #{item.invoiceCode,jdbcType=VARCHAR} AND INV_NUM = #{item.invoiceNum,jdbcType=VARCHAR} then #{item.finslVoucherNo,jdbcType=VARCHAR}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="BILL_CODE =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.billCode!=null">
+                        when INV_KIND = #{item.invoiceCode,jdbcType=VARCHAR} AND INV_NUM = #{item.invoiceNum,jdbcType=VARCHAR} then #{item.billCode,jdbcType=VARCHAR}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="VOUCHER_PERIOD =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.foucherPeriod!=null">
+                        when INV_KIND = #{item.invoiceCode,jdbcType=VARCHAR} AND INV_NUM = #{item.invoiceNum,jdbcType=VARCHAR} then #{item.foucherPeriod,jdbcType=VARCHAR}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="VOUCHER_TAX =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.voucherTax!=null">
+                        when INV_KIND = #{item.invoiceCode,jdbcType=VARCHAR} AND INV_NUM = #{item.invoiceNum,jdbcType=VARCHAR} then #{item.voucherTax,jdbcType=VARCHAR}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="VOUCHER_DATE =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.voucherDate!=null">
+                        when INV_KIND = #{item.invoiceCode,jdbcType=VARCHAR} AND INV_NUM = #{item.invoiceNum,jdbcType=VARCHAR} then #{item.voucherDate,jdbcType=VARCHAR}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="UPDATE_TYPE =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.updateType!=null">
+                        when INV_KIND = #{item.invoiceCode,jdbcType=VARCHAR} AND INV_NUM = #{item.invoiceNum,jdbcType=VARCHAR} then #{item.updateType,jdbcType=VARCHAR}
+                    </if>
+                </foreach>
+            </trim>
+        </trim>
+        where CONCAT(INV_NUM,INV_KIND) in
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            <![CDATA[ CONCAT(#{item.invoiceNum},#{item.invoiceCode})]]>
+        </foreach>
+    </update>
+    <!--通过凭证号删除发票信息-->
+    <!-- DELETE FROM T_SCM_VAT_MAIN_EXTEND WHERE VOUCHER_NUM = #{item.finslVoucherNo,jdbcType=VARCHAR} AND/OR BILL_CODE = #{item.billCode,jdbcType=VARCHAR}-->
+    <delete id="DeleteByVoucherNo" parameterType="com.baiwang.custom.common.model.MGAccountResqust">
+        DELETE FROM T_SCM_VAT_MAIN_EXTEND WHERE VOUCHER_NUM = #{finslVoucherNo,jdbcType=VARCHAR}
+    </delete>
+
+</mapper>

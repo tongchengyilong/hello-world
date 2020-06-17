@@ -1,0 +1,612 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="ImageSystemCallBack">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="paramXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ImageSystemCallBackResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ImageSystemCallBackResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LockBill">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BarCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OPType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LockBillResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LockBillResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LockBillWithLoginInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BarCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OPType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InstanceID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LockBillWithLoginInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LockBillWithLoginInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StartWorkFlowDS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CallingID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BarCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ds">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="2" maxOccurs="2"/>
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StartWorkFlowDSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StartWorkFlowDSResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PreStartWorkFlowWithLoginInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CallingID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BarCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ds">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="2" maxOccurs="2"/>
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="InstanceCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PreStartWorkFlowWithLoginInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PreStartWorkFlowWithLoginInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StartWorkFlowWithLoginInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CallingID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BarCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ds">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="2" maxOccurs="2"/>
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="InstanceCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StartWorkFlowWithLoginInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StartWorkFlowWithLoginInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLocation">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetLocationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLocationResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUrl">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BarCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Evaluation" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CheckSaved" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUrlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUrlResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUrlWithLoginInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BarCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Evaluation" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CheckSaved" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InstanceID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUrlWithLoginInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUrlWithLoginInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Enabled">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CallingID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnabledResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="EnabledResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RejectImageWithLoginInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BarCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InstanceID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RejectImageWithLoginInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RejectImageWithLoginInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RejectImage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BarCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RejectImageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RejectImageResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendBill">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CallingID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BarCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Agreement" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="VocherNum" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="VocherBr" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="VocherPer" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NeedAddImage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendBillResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendBillResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ImageSystemCallBackSoapIn">
+    <wsdl:part name="parameters" element="tns:ImageSystemCallBack" />
+  </wsdl:message>
+  <wsdl:message name="ImageSystemCallBackSoapOut">
+    <wsdl:part name="parameters" element="tns:ImageSystemCallBackResponse" />
+  </wsdl:message>
+  <wsdl:message name="LockBillSoapIn">
+    <wsdl:part name="parameters" element="tns:LockBill" />
+  </wsdl:message>
+  <wsdl:message name="LockBillSoapOut">
+    <wsdl:part name="parameters" element="tns:LockBillResponse" />
+  </wsdl:message>
+  <wsdl:message name="LockBillWithLoginInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:LockBillWithLoginInfo" />
+  </wsdl:message>
+  <wsdl:message name="LockBillWithLoginInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:LockBillWithLoginInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="StartWorkFlowDSSoapIn">
+    <wsdl:part name="parameters" element="tns:StartWorkFlowDS" />
+  </wsdl:message>
+  <wsdl:message name="StartWorkFlowDSSoapOut">
+    <wsdl:part name="parameters" element="tns:StartWorkFlowDSResponse" />
+  </wsdl:message>
+  <wsdl:message name="PreStartWorkFlowWithLoginInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:PreStartWorkFlowWithLoginInfo" />
+  </wsdl:message>
+  <wsdl:message name="PreStartWorkFlowWithLoginInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:PreStartWorkFlowWithLoginInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="StartWorkFlowWithLoginInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:StartWorkFlowWithLoginInfo" />
+  </wsdl:message>
+  <wsdl:message name="StartWorkFlowWithLoginInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:StartWorkFlowWithLoginInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLocation" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLocationResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUrlSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUrl" />
+  </wsdl:message>
+  <wsdl:message name="GetUrlSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUrlResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUrlWithLoginInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUrlWithLoginInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetUrlWithLoginInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUrlWithLoginInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="EnabledSoapIn">
+    <wsdl:part name="parameters" element="tns:Enabled" />
+  </wsdl:message>
+  <wsdl:message name="EnabledSoapOut">
+    <wsdl:part name="parameters" element="tns:EnabledResponse" />
+  </wsdl:message>
+  <wsdl:message name="RejectImageWithLoginInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:RejectImageWithLoginInfo" />
+  </wsdl:message>
+  <wsdl:message name="RejectImageWithLoginInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:RejectImageWithLoginInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="RejectImageSoapIn">
+    <wsdl:part name="parameters" element="tns:RejectImage" />
+  </wsdl:message>
+  <wsdl:message name="RejectImageSoapOut">
+    <wsdl:part name="parameters" element="tns:RejectImageResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendBillSoapIn">
+    <wsdl:part name="parameters" element="tns:SendBill" />
+  </wsdl:message>
+  <wsdl:message name="SendBillSoapOut">
+    <wsdl:part name="parameters" element="tns:SendBillResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ImageInterfaceSoap">
+    <wsdl:operation name="ImageSystemCallBack">
+      <wsdl:input message="tns:ImageSystemCallBackSoapIn" />
+      <wsdl:output message="tns:ImageSystemCallBackSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LockBill">
+      <wsdl:input message="tns:LockBillSoapIn" />
+      <wsdl:output message="tns:LockBillSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LockBillWithLoginInfo">
+      <wsdl:input message="tns:LockBillWithLoginInfoSoapIn" />
+      <wsdl:output message="tns:LockBillWithLoginInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="StartWorkFlowDS">
+      <wsdl:input message="tns:StartWorkFlowDSSoapIn" />
+      <wsdl:output message="tns:StartWorkFlowDSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PreStartWorkFlowWithLoginInfo">
+      <wsdl:input message="tns:PreStartWorkFlowWithLoginInfoSoapIn" />
+      <wsdl:output message="tns:PreStartWorkFlowWithLoginInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="StartWorkFlowWithLoginInfo">
+      <wsdl:input message="tns:StartWorkFlowWithLoginInfoSoapIn" />
+      <wsdl:output message="tns:StartWorkFlowWithLoginInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLocation">
+      <wsdl:input message="tns:GetLocationSoapIn" />
+      <wsdl:output message="tns:GetLocationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUrl">
+      <wsdl:input message="tns:GetUrlSoapIn" />
+      <wsdl:output message="tns:GetUrlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUrlWithLoginInfo">
+      <wsdl:input message="tns:GetUrlWithLoginInfoSoapIn" />
+      <wsdl:output message="tns:GetUrlWithLoginInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Enabled">
+      <wsdl:input message="tns:EnabledSoapIn" />
+      <wsdl:output message="tns:EnabledSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RejectImageWithLoginInfo">
+      <wsdl:input message="tns:RejectImageWithLoginInfoSoapIn" />
+      <wsdl:output message="tns:RejectImageWithLoginInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RejectImage">
+      <wsdl:input message="tns:RejectImageSoapIn" />
+      <wsdl:output message="tns:RejectImageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendBill">
+      <wsdl:input message="tns:SendBillSoapIn" />
+      <wsdl:output message="tns:SendBillSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ImageInterfaceSoap" type="tns:ImageInterfaceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ImageSystemCallBack">
+      <soap:operation soapAction="http://tempuri.org/ImageSystemCallBack" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LockBill">
+      <soap:operation soapAction="http://tempuri.org/LockBill" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LockBillWithLoginInfo">
+      <soap:operation soapAction="http://tempuri.org/LockBillWithLoginInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartWorkFlowDS">
+      <soap:operation soapAction="http://tempuri.org/StartWorkFlowDS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PreStartWorkFlowWithLoginInfo">
+      <soap:operation soapAction="http://tempuri.org/PreStartWorkFlowWithLoginInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartWorkFlowWithLoginInfo">
+      <soap:operation soapAction="http://tempuri.org/StartWorkFlowWithLoginInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocation">
+      <soap:operation soapAction="http://tempuri.org/GetLocation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUrl">
+      <soap:operation soapAction="http://tempuri.org/GetUrl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUrlWithLoginInfo">
+      <soap:operation soapAction="http://tempuri.org/GetUrlWithLoginInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Enabled">
+      <soap:operation soapAction="http://tempuri.org/Enabled" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RejectImageWithLoginInfo">
+      <soap:operation soapAction="http://tempuri.org/RejectImageWithLoginInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RejectImage">
+      <soap:operation soapAction="http://tempuri.org/RejectImage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendBill">
+      <soap:operation soapAction="http://tempuri.org/SendBill" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ImageInterfaceSoap12" type="tns:ImageInterfaceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ImageSystemCallBack">
+      <soap12:operation soapAction="http://tempuri.org/ImageSystemCallBack" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LockBill">
+      <soap12:operation soapAction="http://tempuri.org/LockBill" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LockBillWithLoginInfo">
+      <soap12:operation soapAction="http://tempuri.org/LockBillWithLoginInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartWorkFlowDS">
+      <soap12:operation soapAction="http://tempuri.org/StartWorkFlowDS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PreStartWorkFlowWithLoginInfo">
+      <soap12:operation soapAction="http://tempuri.org/PreStartWorkFlowWithLoginInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartWorkFlowWithLoginInfo">
+      <soap12:operation soapAction="http://tempuri.org/StartWorkFlowWithLoginInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocation">
+      <soap12:operation soapAction="http://tempuri.org/GetLocation" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUrl">
+      <soap12:operation soapAction="http://tempuri.org/GetUrl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUrlWithLoginInfo">
+      <soap12:operation soapAction="http://tempuri.org/GetUrlWithLoginInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Enabled">
+      <soap12:operation soapAction="http://tempuri.org/Enabled" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RejectImageWithLoginInfo">
+      <soap12:operation soapAction="http://tempuri.org/RejectImageWithLoginInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RejectImage">
+      <soap12:operation soapAction="http://tempuri.org/RejectImage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendBill">
+      <soap12:operation soapAction="http://tempuri.org/SendBill" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ImageInterface">
+    <wsdl:port name="ImageInterfaceSoap" binding="tns:ImageInterfaceSoap">
+      <soap:address location="http://10.23.119.36/cwbase/service/ImageInterface.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ImageInterfaceSoap12" binding="tns:ImageInterfaceSoap12">
+      <soap12:address location="http://10.23.119.36/cwbase/service/ImageInterface.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

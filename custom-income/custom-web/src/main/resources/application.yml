@@ -1,0 +1,525 @@
+###########################通用配置###############################
+management:
+  security:
+    enabled: false
+  context-path: /monitor
+file: #文件路径
+  path: /data/scm/vatImg/invoice/
+singlepoint: #单点登入配置
+  checkFlag: false #开关
+  requestHeaderFlag: true #打印请求头信息
+  requestParamsFlag: true #打印请求参数
+  corsFlag: true #跨域开关(和Cors方式一起使用)
+fakeswitch:  #挡板环境
+   checkFlag: false #开关
+   mockServerFlag: false #开关
+scheduled: #定时任务开关
+   invoiceCheckCancel: false #取消查验任务开关
+   invoiceCheckCancelCron: 0 0/59 * * * ? #取消查验cron表达式。修改cron，需要修改锁有效期
+   invoiceCheckCancelLockExpire: 3538 #取消查验锁有效期,59*60-2
+   invoiceCheck: false #查验任务任务开关
+   invoiceCheckCron: 0 0/1 * * * ? #查验任务cron表达式。修改cron，需要修改锁有效期
+   invoiceCheckLockExpire: 58 #查验任务锁有效期,1*60-2
+   invoiceDeductResult: false #获取认证结果任务开关
+   invoiceDeductResultCron: 0 0/3 * * * ? #获取认证结果cron表达式。修改cron，需要修改锁有效期
+   invoiceDeductResultLockExpire: 178 #获取认证结果锁有效期,3*60-2
+   invoiceDeduct: false #发起认证任务开关
+   invoiceDeductCron: 0 0/2 * * * ? #发起认证cron表达式。修改cron，需要修改锁有效期
+   invoiceDeductLockExpire: 118 #发起认证锁有效期,2*60-2
+   invoiceSync: false #取数任务开关
+   invoiceSyncCron: 0 0/59 * * * ? #取数cron表达式。修改cron，需要修改锁有效期
+   invoiceSyncLockExpire: 3538 #取数锁有效期,59*60-2
+   collectAutoCheckFlag: false #采集表自动查验开关
+   collectAutoCheckFlagCron: 0 0/2 * * * ? #采集表自动查验cron表达式。修改cron，需要修改锁有效期
+   collectAutoCheckFlagLockExpire: 118 #采集表自动查验锁有效期,2*60-2
+   writeFileFlag: false #写入文件开关。true：写入文件，false：不写入文件
+   writeFileCron: 0 0/2 * * * ? #写入文件cron表达式。修改cron，需要修改锁有效期
+   writeFileLockExpire: 118 #写入文件锁有效期,2*60-2
+   targetDir: /Users/admin/test #存放发票取数文件目标目录
+   storeDir: /Users/admin/test #存放发票取数文件目录 #新增
+   tmpDir: /Users/admin/tmp #存放发票取数文件临时目录
+   fileSuffix: txt #文件名后缀
+   fieldFormat: $|$ #每列分隔符
+   invoiceRegularFlag: false #自动认证开关
+   invoiceRegularFlagCron: 0 0/5 * * * ? #自动认证cron表达式。修改cron，需要修改锁有效期
+   invoiceRegularFlagLockExpire: 298 #自动认证锁有效期,5*60-2
+   invoiceCheckAddDetailKey: 10 #查验插入明细锁
+bwcloudRate: #开放平台限流请求设置
+  bwcloudRateFlag: false # 限流开关
+  requestLimit: 25 # 限流次数
+  timeOut: 1000 # 限流毫秒为单位（当前设置为1秒）
+  jxChannelKey: bwcloudRate # 请求开放平台限流key
+  waitTime: 60000 # 重试超时时间毫秒，间隔1秒重试一次（当前设置为1分钟）
+spring: #默认profiles
+  profiles:
+    active: dev
+
+cxf:
+  path: /test
+
+WebServicePublishPath: /imageCenter
+
+imageCenter:
+  #  ip: 10.23.119.160/document #影像中心接口IP地址
+  #  ip: 10.100.1.24
+  ip: 192.168.4.175
+  post: 9123
+  mgAccountInfoUrl: http://${imageCenter.ip}:${imageCenter.post}/bill/bill/getAccountBill
+  startWorkFlowUrl: http://${imageCenter.ip}/bill/bill/startWorkFlow
+  rejectBillUrl: http://${imageCenter.ip}/bill/bill/rejectBill
+  rescanUrl: http://${imageCenter.ip}/bill/bill/reScan
+  lockedBillcodeUrl: http://${imageCenter.ip}/bill/bill/lockedBillcode
+  imagePreviewUrl: http://${imageCenter.ip}/bill/bill/getRejectStatus
+  whiteList:     #影像中心请求ip白名单,为空不校验,多ip用英文逗号分隔
+  blackList:     #影像中心请求ip黑名单,为空不校验,多ip用英文逗号分隔
+
+magang:
+  WSDL: classpath:/wsdl/ImageInterface.wsdl
+  namespace: http://tempuri.org/
+  connectionTimeout: 30000
+  receiveTimeout: 30000
+
+
+
+---
+###########################开发环境配置###############################
+spring:
+    profiles: dev
+    http:
+      multipart:
+        maxFileSize: 100Mb
+        maxRequestSize: 1000Mb
+    datasource:
+        name: db
+        type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:oracle:thin:@//oracle1.test.baiwang-inner.com/ testdb1
+        username: mgjt
+        password: mgjt
+        driver-class-name: oracle.jdbc.OracleDriver
+        minIdle: 5
+        maxActive: 100
+        initialSize: 10
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 50
+        removeAbandoned: true
+        filters: stat # ,wall,log4j # 配置监控统计拦截的filters，去掉后监控界面sql 无法统计，'wall'用于防火墙
+        connectionProperties:  druid.stat.mergeSql=false;druid.stat.slowSqlMillis=5000 # 通过connectProperties属 性来打开mergeSql功能；慢SQL记录
+        useGlobalDataSourceStat: true # 合并多个DruidDataSource的监控数据
+        druidLoginName: wjf # 登录druid的账号
+        druidPassword: wjf # 登录druid的密码
+    redis:
+        database: 0 # Redis数据库索引（默认为0）
+        host: 192.168.6.52 # Redis服务器地址
+        port: 6379 # Redis服务器连接端口
+        password: wanda # Redis服务器连接密码（默认为空）
+        pool:
+          max-active: 1024 # 连接池最大连接数（使用负值表示没有限制）
+          max-wait: 10000 # 连接池最大阻塞等待时间（使用负值表示没有限制）
+          max-idle: 200 # 连接池中的最大空闲连接
+          min-idle: 50 # 连接池中的最小空闲连接
+        timeout: 10000 # 连接超时时间（毫秒）
+#用户中心远程调用地址
+remote:
+    usercenter:
+        getuser: http://192.168.6.52:8787/moirai/user/findUserByCondition
+        getuserlist: http://192.168.6.52:8787/moirai/user/findLowerLevelUserPage
+        getuserorg: http://192.168.6.52:8787/moirai/user/getUserOrg
+        getorgtree: http://192.168.6.52:8787/moirai/org/getOrgTree
+        getuserresource: http://192.168.6.52:8787/moirai/user/getResource
+        getuserorgpage: http://192.168.6.52:8787/moirai/user/getUserOrgPage
+        getuserorgbe: http://192.168.6.52:8787/moirai/org/getOrgByCondition
+        checkToken: http://192.168.6.52:8788/sso/bwuser/checkToken
+        getAppSecret: http://192.168.6.52:8787/moirai/appSecret/getAppSecret
+        gettenantbycondition:  http://192.168.6.52:8787/moirai/tenant/getTenantByCondition
+        getOrgList: http://192.168.6.52:8787/moirai/org/getOrgListByCondition
+#        getuser: http://192.168.6.223:8787/moirai/user/findUserByCondition
+#        getuserlist: http://192.168.6.223:8787/moirai/user/findLowerLevelUserPage
+#        getuserorg: http://192.168.6.223:8787/moirai/user/getUserOrg
+#        getorgtree: http://192.168.6.223:8787/moirai/org/getOrgTree
+#        getuserresource: http://192.168.6.223:8787/moirai/user/getResource
+#        getuserorgpage: http://192.168.6.223:8787/moirai/user/getUserOrgPage
+#        getuserorgbe: http://192.168.6.223:8787/moirai/org/getOrgByCondition
+#        getOrgList: http://192.168.6.223:8787/moirai/org/getOrgListByCondition
+#        checkToken: http://192.168.6.223:8089/sso/bwuser/checkToken
+#        getAppSecret: http://192.168.6.223:8787/moirai/appSecret/getAppSecret
+#        gettenantbycondition: http://192.168.6.223:8787/moirai/tenant/getTenantByCondition
+#开放平台远程调用地址
+bwcloud:
+  url: http://60.205.83.27/router/rest
+  appKey: 10000005
+  appSecret: b65025d0-19d2-4841-88f4-ff4439b8da58
+  username: admin_1800000021168
+  password: a123456
+  usersalt: 94db610c5c3049df8da3e9ac91390015
+  version: 1.0
+  proxy:
+    flag: false
+    address: www.proxy.com
+    port: 8080
+#服务器端口配置
+server:
+  port: 8080
+  context-path: /jxindependent
+  session-timeout: 60
+#mybatis配置
+mybatis:
+     mapperLocations:  classpath:/com/baiwang/platform/custom/dao/mappers/oracle/*.xml,classpath*:/mappers/oracle/*.xml
+     typeAliasesPackage: com.baiwang.platform.custom.dao
+     mapperScanPackage: com.baiwang.platform.custom.dao
+     configLocation: classpath:/mybatis-config.xml
+
+splitOrgId:
+    splitSQL: SELECT REGEXP_SUBSTR(:str, '[^,]+', 1, LEVEL) AS value_str FROM  DUAL CONNECT BY LEVEL <= :length
+    oneMax: 50
+
+---
+###########################MYSQL环境配置###############################
+spring:
+    profiles: mysql
+    http:
+      multipart:
+        maxFileSize: 100Mb
+        maxRequestSize: 1000Mb
+    datasource:
+        name: db
+        type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:mysql://192.168.6.62:3306/jxstanded? useUnicode=true&characterEncoding=UTF-8
+        username: root
+        password: baijia*58
+        driver-class-name: com.mysql.jdbc.Driver
+        minIdle: 5
+        maxActive: 100
+        initialSize: 10
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 50
+        removeAbandoned: true
+        filters: stat # ,wall,log4j # 配置监控统计拦截的filters，去掉后监控界面sql 无法统计，'wall'用于防火墙
+        connectionProperties:  druid.stat.mergeSql=false;druid.stat.slowSqlMillis=5000 # 通过connectProperties属 性来打开mergeSql功能；慢SQL记录
+        useGlobalDataSourceStat: true # 合并多个DruidDataSource的监控数据
+        druidLoginName: wjf # 登录druid的账号
+        druidPassword: wjf # 登录druid的密码
+    redis:
+        database: 0 # Redis数据库索引（默认为0）
+        host: 192.168.6.52 # Redis服务器地址
+        port: 6379 # Redis服务器连接端口
+        password: wanda # Redis服务器连接密码（默认为空）
+        pool:
+          max-active: 1024 # 连接池最大连接数（使用负值表示没有限制）
+          max-wait: 10000 # 连接池最大阻塞等待时间（使用负值表示没有限制）
+          max-idle: 200 # 连接池中的最大空闲连接
+          min-idle: 50 # 连接池中的最小空闲连接
+        timeout: 10000 # 连接超时时间（毫秒）
+#用户中心远程调用地址
+remote:
+    usercenter:
+        getuser: http://192.168.6.52:8787/moirai/user/findUserByCondition
+        getuserlist: http://192.168.6.52:8787/moirai/user/findLowerLevelUserPage
+        getuserorg: http://192.168.6.52:8787/moirai/user/getUserOrg
+        getorgtree: http://192.168.6.52:8787/moirai/org/getOrgTree
+        getuserresource: http://192.168.6.52:8787/moirai/user/getResource
+        getuserorgpage: http://192.168.6.52:8787/moirai/user/getUserOrgPage
+        getuserorgbe: http://192.168.6.52:8787/moirai/org/getOrgByCondition
+        getOrgList: http://192.168.6.223:8787/moirai/org/getOrgListByCondition
+        checkToken: http://192.168.6.52:8788/sso/bwuser/checkToken
+        getAppSecret: http://192.168.6.52:8787/moirai/appSecret/getAppSecret
+        gettenantbycondition:  http://192.168.6.52:8787/moirai/tenant/getTenantByCondition
+#开放平台远程调用地址
+bwcloud:
+  url: http://60.205.83.27/router/rest
+  appKey: 10000005
+  appSecret: b65025d0-19d2-4841-88f4-ff4439b8da58
+  username: admin_1800000021168
+  password: a123456
+  usersalt: 94db610c5c3049df8da3e9ac91390015
+  version: 1.0
+  proxy:
+    flag: false
+    address: www.proxy.com
+    port: 8080
+#服务器端口配置
+server:
+  port: 8080
+  context-path: /jxindependent
+  session-timeout: 60
+#mybatis配置
+mybatis:
+     mapperLocations:  classpath:/com/baiwang/platform/custom/dao/mappers/mysql/*.xml,classpath*:/mappers/*.xml
+     typeAliasesPackage: com.baiwang.platform.custom.dao1
+     mapperScanPackage: com.baiwang.platform.custom.dao
+     configLocation: classpath:/mybatis-config.xml
+splitOrgId:
+    splitSQL: SELECT :str AS value_str FROM DUAL
+    oneMax: 1
+
+---
+###########################测试环境配置###############################
+spring:
+    profiles: test
+    http:
+          multipart:
+            maxFileSize: 100Mb
+            maxRequestSize: 1000Mb
+    datasource:
+        name: db
+        type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:oracle:thin:@172.20.1.210:1521:KPGLXTDB
+        username: jxstanded
+        password: jxstanded
+        driver-class-name: oracle.jdbc.OracleDriver
+        minIdle: 5
+        maxActive: 100
+        initialSize: 10
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 50
+        removeAbandoned: true
+        filters: stat # ,wall,log4j # 配置监控统计拦截的filters，去掉后监控界面sql 无法统计，'wall'用于防火墙
+        connectionProperties:  druid.stat.mergeSql=false;druid.stat.slowSqlMillis=5000 # 通过connectProperties属 性来打开mergeSql功能；慢SQL记录
+        useGlobalDataSourceStat: true # 合并多个DruidDataSource的监控数据
+        druidLoginName: wjf # 登录druid的账号
+        druidPassword: wjf # 登录druid的密码
+    redis:
+        database: 0 # Redis数据库索引（默认为0）
+        host: 172.20.1.211 # Redis服务器地址
+        port: 6379 # Redis服务器连接端口
+        password:  # Redis服务器连接密码（默认为空）
+        pool:
+          max-active: 1024 # 连接池最大连接数（使用负值表示没有限制）
+          max-wait: 10000 # 连接池最大阻塞等待时间（使用负值表示没有限制）
+          max-idle: 200 # 连接池中的最大空闲连接
+          min-idle: 50 # 连接池中的最小空闲连接
+        timeout: 10000 # 连接超时时间（毫秒）
+#用户中心远程调用地址
+remote:
+    usercenter:
+        getuser: http://172.20.1.212:8787/moirai/user/findUserByCondition
+        getuserlist: http://172.20.1.212:8787/moirai/user/findLowerLevelUserPage
+        getuserorg: http://172.20.1.212:8787/moirai/user/getUserOrg
+        getorgtree: http://172.20.1.212:8787/moirai/org/getOrgTree
+        getuserresource: http://172.20.1.212:8787/moirai/user/getResource
+        getuserorgpage: http://172.20.1.212:8787/moirai/user/getUserOrgPage
+        getuserorgbe: http://172.20.1.212:8787/moirai/org/getOrgByCondition
+        getOrgList: http://192.168.6.223:8787/moirai/org/getOrgListByCondition
+        checkToken: http://172.20.1.212:8788/sso/bwuser/checkToken
+        getAppSecret: http://172.20.1.212:8787/moirai/appSecret/getAppSecret
+        gettenantbycondition:  http://172.20.1.212:8787/moirai/tenant/getTenantByCondition
+#开放平台远程调用地址
+bwcloud:
+  url: http://60.205.83.27/router/rest
+  appKey: 10000005
+  appSecret: b65025d0-19d2-4841-88f4-ff4439b8da58
+  username: admin_1800000021168
+  password: a123456
+  usersalt: 94db610c5c3049df8da3e9ac91390015
+  version: 1.0
+  proxy:
+    flag: false
+    address: www.proxy.com
+    port: 8080
+#服务器端口配置
+server:
+  port: 8080
+  context-path: /jxindependent
+  session-timeout: 60
+#mybatis配置
+mybatis:
+     mapperLocations:  classpath:/com/baiwang/platform/custom/dao/mappers/oracle/*.xml,classpath*:/mappers/*.xml
+     typeAliasesPackage: com.baiwang.platform.custom.dao
+     mapperScanPackage: com.baiwang.platform.custom.dao
+     configLocation: classpath:/mybatis-config.xml
+splitOrgId:
+    splitSQL: SELECT REGEXP_SUBSTR(:str, '[^,]+', 1, LEVEL) AS value_str FROM  DUAL CONNECT BY LEVEL <= :length
+    oneMax: 50
+
+---
+###########################生产环境配置###############################
+spring:
+    profiles: prd
+    http:
+          multipart:
+            maxFileSize: 100Mb
+            maxRequestSize: 1000Mb
+    datasource:
+        name: db
+        type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:oracle:thin:@192.168.0.245:1521:csdb
+        username: jxstanded
+        password: jxstanded
+        driver-class-name: oracle.jdbc.OracleDriver
+        minIdle: 5
+        maxActive: 100
+        initialSize: 10
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 50
+        removeAbandoned: true
+        filters: stat # ,wall,log4j # 配置监控统计拦截的filters，去掉后监控界面sql 无法统计，'wall'用于防火墙
+        connectionProperties:  druid.stat.mergeSql=false;druid.stat.slowSqlMillis=5000 # 通过connectProperties属 性来打开mergeSql功能；慢SQL记录
+        useGlobalDataSourceStat: true # 合并多个DruidDataSource的监控数据
+        druidLoginName: wjf # 登录druid的账号
+        druidPassword: wjf # 登录druid的密码
+    redis:
+        database: 0 # Redis数据库索引（默认为0）
+        host: 192.168.6.14 # Redis服务器地址
+        port: 6365 # Redis服务器连接端口
+        password: nikanba888 # Redis服务器连接密码（默认为空）
+        pool:
+          max-active: 1024 # 连接池最大连接数（使用负值表示没有限制）
+          max-wait: 10000 # 连接池最大阻塞等待时间（使用负值表示没有限制）
+          max-idle: 200 # 连接池中的最大空闲连接
+          min-idle: 50 # 连接池中的最小空闲连接
+        timeout: 10000 # 连接超时时间（毫秒）
+#用户中心远程调用地址
+remote:
+    usercenter:
+        getuser: http://192.168.6.52:8787/moirai/user/findUserByCondition
+        getuserlist: http://192.168.6.52:8787/moirai/user/findUserByCondition
+        getuserorg: http://192.168.6.52:8787/moirai/user/getUserOrg
+        getorgtree: http://192.168.6.52:8787/moirai/org/getOrgTree
+        getuserresource: http://192.168.6.52:8787/moirai/user/getResource
+        getuserorgpage: http://192.168.6.52:8787/moirai/user/getUserOrgPage
+        getuserorgbe: http://192.168.6.52:8787/moirai/org/getOrgByCondition
+        getAppSecret: http://192.168.6.52:8787/moirai/appSecret/getAppSecret
+        gettenantbycondition:  http://192.168.6.52:8787/moirai/tenant/getTenantByCondition
+#开放平台远程调用地址
+bwcloud:
+  url: http://openapi.baiwang.com/router/rest
+  appKey: 10000081
+  appSecret: 40001a96-59f8-4d4e-a9f6-d28161fe7e7c
+  username: admin_1700000081547
+  password: a123456
+  usersalt: b41e7f067d4740619031add368f2c611
+  version: 1.0
+  proxy:
+    flag: false
+    address: www.proxy.com
+    port: 8080
+#服务器端口配置
+server:
+  port: 8080
+  context-path: /jxindependent
+  session-timeout: 60
+#mybatis配置
+mybatis:
+     mapperLocations:  classpath:/com/baiwang/platform/custom/dao/mappers/oracle/*.xml,classpath*:/mappers/*.xml
+     typeAliasesPackage: com.baiwang.platform.custom.dao
+     mapperScanPackage: com.baiwang.platform.custom.dao
+     configLocation: classpath:/mybatis-config.xml
+
+splitOrgId:
+    splitSQL: SELECT REGEXP_SUBSTR(:str, '[^,]+', 1, LEVEL) AS value_str FROM  DUAL CONNECT BY LEVEL <= :length
+    oneMax: 50
+
+---
+###########################单元测试配置###############################
+spring:
+    profiles: localtest
+    http:
+          multipart:
+            maxFileSize: 100Mb
+            maxRequestSize: 1000Mb
+    datasource:
+        name: db
+        type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:mysql://192.168.6.62:3306/jxstanded? useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+        username: root
+        password: baijia*58
+        driver-class-name: com.mysql.jdbc.Driver
+        minIdle: 5
+        maxActive: 100
+        initialSize: 10
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 50
+        removeAbandoned: true
+        filters: stat # ,wall,log4j # 配置监控统计拦截的filters，去掉后监控界面sql 无法统计，'wall'用于防火墙
+        connectionProperties:  druid.stat.mergeSql=false;druid.stat.slowSqlMillis=5000 # 通过connectProperties属 性来打开mergeSql功能；慢SQL记录
+        useGlobalDataSourceStat: true # 合并多个DruidDataSource的监控数据
+        druidLoginName: wjf # 登录druid的账号
+        druidPassword: wjf # 登录druid的密码
+    redis:
+        database: 0 # Redis数据库索引（默认为0）
+        host: 192.168.6.14 # Redis服务器地址
+        port: 6365 # Redis服务器连接端口
+        password: nikanba888 # Redis服务器连接密码（默认为空）
+        pool:
+          max-active: 1024 # 连接池最大连接数（使用负值表示没有限制）
+          max-wait: 10000 # 连接池最大阻塞等待时间（使用负值表示没有限制）
+          max-idle: 200 # 连接池中的最大空闲连接
+          min-idle: 50 # 连接池中的最小空闲连接
+        timeout: 10000 # 连接超时时间（毫秒）
+#用户中心远程调用地址
+remote:
+    usercenter:
+        getuser: http://192.168.6.52:8787/moirai/user/findUserByCondition
+        getuserlist: http://192.168.6.52:8787/moirai/user/findLowerLevelUserPage
+        getuserorg: http://192.168.6.52:8787/moirai/user/getUserOrg
+        getorgtree: http://192.168.6.52:8787/moirai/org/getOrgTree
+        getuserresource: http://192.168.6.52:8787/moirai/user/getResource
+        getuserorgpage: http://192.168.6.52:8787/moirai/user/getUserOrgPage
+        getuserorgbe: http://192.168.6.52:8787/moirai/org/getOrgByCondition
+        getOrgList: http://192.168.6.223:8787/moirai/org/getOrgListByCondition
+        checkToken: http://192.168.6.52:8788/sso/bwuser/checkToken
+        getAppSecret: http://192.168.6.52:8787/moirai/appSecret/getAppSecret
+        gettenantbycondition:  http://192.168.6.52:8787/moirai/tenant/getTenantByCondition
+#开放平台远程调用地址
+bwcloud:
+  url: http://localhost:5000/router/rest
+  appKey: 10000005
+  appSecret: b65025d0-19d2-4841-88f4-ff4439b8da58
+  username: admin_1800000021168
+  password: a123456
+  usersalt: 94db610c5c3049df8da3e9ac91390015
+  version: 1.0
+  proxy:
+    flag: false
+    address: www.proxy.com
+    port: 8080
+#服务器端口配置
+server:
+  port: 8080
+  context-path: /jxindependent
+  session-timeout: 60
+
+#mybatis配置
+mybatis:
+     mapperLocations:  classpath:/com/baiwang/platform/custom/dao/mappers/mysql/*.xml,classpath*:/mappers/*.xml
+     typeAliasesPackage: com.baiwang.platform.custom.dao
+     mapperScanPackage: com.baiwang.platform.custom.dao
+     configLocation: classpath:/mybatis-config.xml
+
+splitOrgId:
+    splitSQL: SELECT :str AS value_str FROM DUAL
+    oneMax: 1

@@ -1,0 +1,800 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baiwang.custom.common.dao.MGTScmVatMainMapper">
+  <resultMap id="BaseResultMap" type="com.baiwang.platform.custom.dao.domain.TScmVatMain">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="BUYER_TAXNO" jdbcType="VARCHAR" property="buyerTaxno" />
+    <result column="INV_KIND" jdbcType="VARCHAR" property="invKind" />
+    <result column="INV_NUM" jdbcType="VARCHAR" property="invNum" />
+    <result column="SELLER_TAXNO" jdbcType="VARCHAR" property="sellerTaxno" />
+    <result column="INV_DATE" jdbcType="TIMESTAMP" property="invDate" />
+    <result column="INV_COST" jdbcType="DECIMAL" property="invCost" />
+    <result column="INV_VAT" jdbcType="DECIMAL" property="invVat" />
+    <result column="INV_SUM" jdbcType="DECIMAL" property="invSum" />
+    <result column="INV_RATE" jdbcType="DECIMAL" property="invRate" />
+    <result column="INV_PWD" jdbcType="VARCHAR" property="invPwd" />
+    <result column="INV_DEDU_RESULT" jdbcType="VARCHAR" property="invDeduResult" />
+    <result column="INV_TYPE" jdbcType="CHAR" property="invType" />
+    <result column="INV_FROM" jdbcType="CHAR" property="invFrom" />
+    <result column="INV_STATUS" jdbcType="VARCHAR" property="invStatus" />
+    <result column="SCAN_MATCH" jdbcType="CHAR" property="scanMatch" />
+    <result column="MATCH_STATUS" jdbcType="VARCHAR" property="matchStatus" />
+    <result column="INV_TAX_SIGN" jdbcType="CHAR" property="invTaxSign" />
+    <result column="INV_COMMENT" jdbcType="VARCHAR" property="invComment" />
+    <result column="INV_ERR_INFO" jdbcType="VARCHAR" property="invErrInfo" />
+    <result column="INV_DEDU_DATE" jdbcType="TIMESTAMP" property="invDeduDate" />
+    <result column="INV_CONFIRM_DATE" jdbcType="TIMESTAMP" property="invConfirmDate" />
+    <result column="INV_CONFIRM_USER" jdbcType="VARCHAR" property="invConfirmUser" />
+    <result column="INV_SEND_TIME" jdbcType="TIMESTAMP" property="invSendTime" />
+    <result column="INV_RECE_TIME" jdbcType="TIMESTAMP" property="invReceTime" />
+    <result column="SCAN_DATE" jdbcType="TIMESTAMP" property="scanDate" />
+    <result column="SCAN_USER" jdbcType="VARCHAR" property="scanUser" />
+    <result column="SCAN_NO" jdbcType="VARCHAR" property="scanNo" />
+    <result column="INV_INPUT_USER" jdbcType="VARCHAR" property="invInputUser" />
+    <result column="INV_INPUT_TIME" jdbcType="TIMESTAMP" property="invInputTime" />
+    <result column="INV_DRAW_TIME" jdbcType="TIMESTAMP" property="invDrawTime" />
+    <result column="INV_SCAN_TIME" jdbcType="TIMESTAMP" property="invScanTime" />
+    <result column="BUYER_NAME" jdbcType="VARCHAR" property="buyerName" />
+    <result column="BUYER_ADDR_TEL" jdbcType="VARCHAR" property="buyerAddrTel" />
+    <result column="BUYER_BANK" jdbcType="VARCHAR" property="buyerBank" />
+    <result column="SELLER_NAME" jdbcType="VARCHAR" property="sellerName" />
+    <result column="SELLER_ADDR_TEL" jdbcType="VARCHAR" property="sellerAddrTel" />
+    <result column="SELLER_BANK" jdbcType="VARCHAR" property="sellerBank" />
+    <result column="MATCH_NO" jdbcType="DECIMAL" property="matchNo" />
+    <result column="MATCH_DATE" jdbcType="TIMESTAMP" property="matchDate" />
+    <result column="MATCH_USER" jdbcType="VARCHAR" property="matchUser" />
+    <result column="MATCH_ERR_INFO" jdbcType="VARCHAR" property="matchErrInfo" />
+    <result column="SELLER_ID" jdbcType="VARCHAR" property="sellerId" />
+    <result column="PO_IDS" jdbcType="VARCHAR" property="poIds" />
+    <result column="PO_TYPE" jdbcType="VARCHAR" property="poType" />
+    <result column="INV_TAXNO" jdbcType="VARCHAR" property="invTaxno" />
+    <result column="SCAN_BATCH" jdbcType="VARCHAR" property="scanBatch" />
+    <result column="CHGRES_USER" jdbcType="VARCHAR" property="chgresUser" />
+    <result column="CHGRES_TIME" jdbcType="TIMESTAMP" property="chgresTime" />
+    <result column="ERR_UPDATE_TIME" jdbcType="TIMESTAMP" property="errUpdateTime" />
+    <result column="IS_TRANS" jdbcType="CHAR" property="isTrans" />
+    <result column="MATCH_COST" jdbcType="DECIMAL" property="matchCost" />
+    <result column="MATCH_VAT" jdbcType="DECIMAL" property="matchVat" />
+    <result column="FULL_CODE" jdbcType="VARCHAR" property="fullCode" />
+    <result column="FLOW_STATUS" jdbcType="VARCHAR" property="flowStatus" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy" />
+    <result column="INCOME_MONTH" jdbcType="VARCHAR" property="incomeMonth" />
+    <result column="RECORD_MONTH" jdbcType="VARCHAR" property="recordMonth" />
+    <result column="INV_CONFIRM_STATUS" jdbcType="VARCHAR" property="invConfirmStatus" />
+    <result column="IMG_PATH" jdbcType="VARCHAR" property="imgPath" />
+    <result column="IMG_TIME" jdbcType="TIMESTAMP" property="imgTime" />
+    <result column="IS_COLLECT_ALL" jdbcType="VARCHAR" property="isCollectAll" />
+    <result column="COLLECT_TIME" jdbcType="DECIMAL" property="collectTime" />
+    <result column="IS_SCANNER" jdbcType="VARCHAR" property="isScanner" />
+    <result column="DEDU_INFO" jdbcType="VARCHAR" property="deduInfo" />
+    <result column="UPDATE_DEDU_INFO_DATE" jdbcType="TIMESTAMP" property="updateDeduInfoDate" />
+    <result column="RECEV_FLAG" jdbcType="CHAR" property="recevFlag" />
+    <result column="SCAN_UPDATE_DATE" jdbcType="TIMESTAMP" property="scanUpdateDate" />
+    <result column="SYS_COMPANY_CODE" jdbcType="VARCHAR" property="sysCompanyCode" />
+    <result column="SYNC_TASKNO" jdbcType="VARCHAR" property="syncTaskno" />
+    <result column="SYNC_SEND_STATUS" jdbcType="VARCHAR" property="syncSendStatus" />
+    <result column="SIGN_TASKNO" jdbcType="VARCHAR" property="signTaskno" />
+    <result column="SIGN_SEND_STATUS" jdbcType="VARCHAR" property="signSendStatus" />
+    <result column="DEDU_TASKNO" jdbcType="VARCHAR" property="deduTaskno" />
+    <result column="DEDU_SEND_STATUS" jdbcType="VARCHAR" property="deduSendStatus" />
+    <result column="DEDU_APPLY_TASKNO" jdbcType="VARCHAR" property="deduApplyTaskno" />
+    <result column="SYS_ORG_CODE" jdbcType="VARCHAR" property="sysOrgCode" />
+    <result column="CHECK_TIME" jdbcType="TIMESTAMP" property="checkTime" />
+    <result column="RECEV_WAY" jdbcType="VARCHAR" property="recevWay" />
+    <result column="IS_TAXNO_FILL" jdbcType="VARCHAR" property="isTaxnoFill" />
+    <result column="APPLY_CONFIRM_TASKNO" jdbcType="VARCHAR" property="applyConfirmTaskno" />
+    <result column="CHECK_CODE" jdbcType="VARCHAR" property="checkCode" />
+    <result column="MACHINE_CODE" jdbcType="VARCHAR" property="machineCode" />
+    <result column="RECEIVING_CLERK" jdbcType="VARCHAR" property="receivingClerk" />
+    <result column="TOTAL_AMOUNT_CN" jdbcType="VARCHAR" property="totalAmountCn" />
+    <result column="FULL_BUYER_TAXNO" jdbcType="VARCHAR" property="fullBuyerTaxno" />
+    <result column="TOLLSIGN" jdbcType="VARCHAR" property="tollsign" />
+    <result column="ZEROTAXRATESIGN" jdbcType="VARCHAR" property="zerotaxratesign" />
+    <result column="CHECK_ERR_CODE" jdbcType="VARCHAR" property="checkErrCode" />
+    <result column="IS_SAME_TAXINFO" jdbcType="VARCHAR" property="isSameTaxInfo" />
+    <result column="ACCOUNT_TIME" jdbcType="TIMESTAMP" property="accountTime" />
+    <result column="VOUCHER_NUM" jdbcType="VARCHAR" property="voucherNum" />
+    <result column="CERTIFICATION_WAY" jdbcType="VARCHAR" property="certificationWay" />
+    <result column="CERTIFICATION_TYPE" jdbcType="VARCHAR" property="certificationType" />
+    <result column="IS_AGENCY_REBATE" jdbcType="VARCHAR" property="isAgencyRebate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, BUYER_TAXNO, INV_KIND, INV_NUM, SELLER_TAXNO, INV_DATE, INV_COST, INV_VAT, INV_SUM,
+    INV_RATE, INV_PWD, INV_DEDU_RESULT, INV_TYPE, INV_FROM, INV_STATUS, SCAN_MATCH, MATCH_STATUS,
+    INV_TAX_SIGN, INV_COMMENT, INV_ERR_INFO, INV_DEDU_DATE, INV_CONFIRM_DATE, INV_CONFIRM_USER,
+    INV_SEND_TIME, INV_RECE_TIME, SCAN_DATE, SCAN_USER, SCAN_NO, INV_INPUT_USER, INV_INPUT_TIME,
+    INV_DRAW_TIME, INV_SCAN_TIME, BUYER_NAME, BUYER_ADDR_TEL, BUYER_BANK, SELLER_NAME,
+    SELLER_ADDR_TEL, SELLER_BANK, MATCH_NO, MATCH_DATE, MATCH_USER, MATCH_ERR_INFO, SELLER_ID,
+    PO_IDS, PO_TYPE, INV_TAXNO, SCAN_BATCH, CHGRES_USER, CHGRES_TIME, ERR_UPDATE_TIME,
+    IS_TRANS, MATCH_COST, MATCH_VAT, FULL_CODE, FLOW_STATUS, CREATE_DATE, CREATE_BY,
+    UPDATE_DATE, UPDATE_BY, INCOME_MONTH, RECORD_MONTH, INV_CONFIRM_STATUS, IMG_PATH,
+    IMG_TIME, IS_COLLECT_ALL, COLLECT_TIME, IS_SCANNER, DEDU_INFO, UPDATE_DEDU_INFO_DATE,
+    RECEV_FLAG, SCAN_UPDATE_DATE, SYS_COMPANY_CODE, SYNC_TASKNO, SYNC_SEND_STATUS, SIGN_TASKNO,
+    SIGN_SEND_STATUS, DEDU_TASKNO, DEDU_SEND_STATUS, DEDU_APPLY_TASKNO, SYS_ORG_CODE,
+    CHECK_TIME, RECEV_WAY, IS_TAXNO_FILL, APPLY_CONFIRM_TASKNO, CHECK_CODE, MACHINE_CODE,
+    RECEIVING_CLERK, TOTAL_AMOUNT_CN, FULL_BUYER_TAXNO,TOLLSIGN,ZEROTAXRATESIGN,CHECK_ERR_CODE,IS_SAME_TAXINFO,
+    ACCOUNT_TIME,VOUCHER_NUM,CERTIFICATION_WAY,CERTIFICATION_TYPE,IS_AGENCY_REBATE
+  </sql>
+    <sql id="BaseVat_Column_List">
+    t.BUYER_TAXNO,INV_KIND, t.INV_NUM, t.SELLER_TAXNO,t.INV_DATE,t.INV_COST,t.INV_VAT,t.INV_TYPE,t.INV_STATUS,SELLER_NAME,t.INV_CONFIRM_STATUS,t.INV_DEDU_DATE,t.INCOME_MONTH,i.CHECK_STATUS,i.IMAGE_PATH,t.CERTIFICATION_WAY,t.CERTIFICATION_TYPE,t.IS_AGENCY_REBATE
+  </sql>
+  <resultMap id="BaseVatResultMap" type="com.baiwang.platform.custom.common.model.TScmVatMainEntity">
+    <result column="BUYER_TAXNO" jdbcType="VARCHAR" property="buyerTaxno" />
+    <result column="INV_KIND" jdbcType="VARCHAR" property="invKind" />
+    <result column="INV_NUM" jdbcType="VARCHAR" property="invNum" />
+    <result column="SELLER_TAXNO" jdbcType="VARCHAR" property="sellerTaxno" />
+    <result column="INV_DATE" jdbcType="TIMESTAMP" property="invDate" />
+    <result column="INV_COST" jdbcType="DECIMAL" property="invCost" />
+    <result column="INV_VAT" jdbcType="DECIMAL" property="invVat" />
+    <result column="INV_TYPE" jdbcType="CHAR" property="invType" />
+    <result column="INV_STATUS" jdbcType="VARCHAR" property="invStatus" />
+    <result column="SELLER_NAME" jdbcType="VARCHAR" property="sellerName" />
+    <result column="INV_CONFIRM_STATUS" jdbcType="VARCHAR" property="invConfirmStatus" />
+    <result column="INV_DEDU_DATE" jdbcType="TIMESTAMP" property="invDeduDate" />
+    <result column="INCOME_MONTH" jdbcType="VARCHAR" property="incomeMonth" />
+    <result column="CHECK_STATUS" jdbcType="VARCHAR" property="checkStatus" />
+    <result column="IMAGE_PATH" jdbcType="VARCHAR" property="imagePath" />
+    <result column="CERTIFICATION_WAY" jdbcType="VARCHAR" property="certificationWay" />
+    <result column="CERTIFICATION_TYPE" jdbcType="VARCHAR" property="certificationType" />
+    <result column="IS_AGENCY_REBATE" jdbcType="VARCHAR" property="isAgencyRebate" />
+  </resultMap>
+
+  <resultMap id="queryInvMap" type="com.baiwang.custom.common.model.MGQueryInvModel" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="invoiceNumber" property="invoiceNumber" jdbcType="VARCHAR" />
+    <result column="invoiceCode" property="invoiceCode" jdbcType="VARCHAR" />
+    <result column="invoiceType" property="invoiceType" jdbcType="VARCHAR" />
+    <result column="billingDate" property="billingDate" jdbcType="VARCHAR" />
+    <result column="totalAmount" property="totalAmount" jdbcType="DOUBLE" />
+    <result column="orgId" property="orgId" jdbcType="VARCHAR" />
+    <result column="collectType" property="collectType" jdbcType="VARCHAR" />
+    <result column="collectSource" property="collectSource" jdbcType="VARCHAR" />
+    <result column="checkStatus" property="checkStatus" jdbcType="VARCHAR" />
+    <result column="invoiceStatus" property="invoiceStatus" jdbcType="VARCHAR" />
+    <result column="deductStatus" property="deductStatus" jdbcType="VARCHAR" />
+    <result column="storageStatus" property="storageStatus" jdbcType="VARCHAR" />
+    <result column="imagePath" property="imagePath" jdbcType="VARCHAR" />
+    <result column="businessType" property="businessType" jdbcType="VARCHAR" />
+    <result column="collectTime" property="collectTime" jdbcType="VARCHAR" />
+    <result column="collector" property="collector" jdbcType="VARCHAR" />
+    <result column="collectorName" property="collectorName" jdbcType="VARCHAR" />
+    <result column="amountTax" property="amountTax" jdbcType="DOUBLE" />
+    <result column="totalTax" property="totalTax" jdbcType="DOUBLE" />
+    <result column="deductType" property="deductType" jdbcType="VARCHAR" />
+    <result column="invConfirmStatus" property="invConfirmStatus" jdbcType="VARCHAR" />
+    <result column="collectStatus" property="collectStatus" jdbcType="VARCHAR" />
+    <result column="sellerName" property="sellerName" jdbcType="VARCHAR" />
+    <result column="redOrBlue" property="redOrBlue" jdbcType="VARCHAR" />
+    <result column="repeatCollect" property="repeatCollect" jdbcType="VARCHAR" />
+    <result column="matterStatus" property="matterStatus" jdbcType="VARCHAR" />
+    <result column="invDeduResult" property="invDeduResult" jdbcType="VARCHAR" />
+    <result column="accountTime" property="accountTime" jdbcType="VARCHAR" />
+    <result column="voucherNum" property="voucherNum" jdbcType="VARCHAR" />
+    <result column="createBy" property="createBy" jdbcType="VARCHAR" />
+    <result column="billCode" property="billCode" jdbcType="VARCHAR" />
+    <result column="voucherDate" property="voucherDate" jdbcType="VARCHAR" />
+  </resultMap>
+<!--TODO:1-->
+  <select id="queryInvList" resultMap="queryInvMap">
+    <if test="payAppNo == null or payAppNo==''" >
+      select
+      vm.id as id,
+      vm.inv_kind as invoiceCode,
+      vm.inv_num as invoiceNumber,
+      vm.inv_type as invoiceType,
+      TO_CHAR(vm.inv_date,'yyyy-mm-dd') as billingDate,
+      vm.inv_vat as  totalTax,
+      vm.inv_cost as totalAmount,
+      vm.inv_sum as amountTax,
+      info.collector as collector,
+      info.collector_name as collectorName,
+      info.collect_type as collectType,
+      info.collect_source as collectSource,
+      TO_CHAR(info.collect_time,'yyyy-mm-dd hh24:mi:ss') as collectTime,
+      info.business_type as businessType,
+      info.storage_status as storageStatus,
+      vm.is_collect_all as checkStatus,
+      vm.INV_CONFIRM_STATUS as deductStatus,
+      vm.IS_SCANNER as deductType,
+      vm.CREATE_BY as createBy,
+      ex.accountTime as accountTime,
+      ex.voucherNum as voucherNum,
+      ex.BILL_CODE as billCode,
+      ex.VOUCHER_DATE as voucherDate,
+      vm.inv_status as invoiceStatus,
+      info.image_path as imagePath,
+      decode(info.INVOICE_CODE,null,'0','1') as collectStatus,
+      vm.seller_name as sellerName,
+      info.red_or_blue as redOrBlue,
+      info.matter_status as matterStatus,
+      info.repeat_collect as repeatCollect,
+      vm.INV_DEDU_RESULT as invDeduResult
+      from t_scm_vat_main vm LEFT JOIN t_s_collect_info info ON vm.inv_kind=info.invoice_code and vm.inv_num=info.invoice_number
+      LEFT JOIN (select listagg(voucher_num,',') within group(order by voucher_num) voucherNum,listagg(to_char(ACCOUNT_TIME,'yyyy-mm-dd'),',') within group(order by ACCOUNT_TIME) accountTime,inv_kind,inv_num,BILL_CODE,VOUCHER_DATE
+      from T_SCM_VAT_MAIN_EXTEND where 1=1 
+      <if test="accountBeginDate!=null and accountBeginDate!=''">
+        <![CDATA[ and to_char(ACCOUNT_TIME,'yyyy-mm-dd') >= #{accountBeginDate}]]>
+      </if>
+      <if test="accountEndDate!=null and accountEndDate!=''">
+        <![CDATA[ and to_char(ACCOUNT_TIME,'yyyy-mm-dd') <= #{accountEndDate}]]>
+      </if>
+      <if test="voucherNum != null and voucherNum!=''" >
+        and  VOUCHER_NUM like '%'||#{voucherNum,jdbcType=VARCHAR}||'%'
+      </if>
+      <if test="billCode != null and billCode != ''" >
+        and  BILL_CODE = #{billCode,jdbcType=VARCHAR}
+      </if>
+      group by inv_kind,inv_num,BILL_CODE,VOUCHER_DATE
+      ) ex on vm.inv_kind = ex.inv_kind and vm.INV_NUM = ex.inv_num
+      where 1=1
+    </if>
+    <if test="payAppNo != null and payAppNo!=''" >
+
+      select
+      vm.id as id,
+      vm.inv_kind as invoiceCode,
+      vm.inv_num as invoiceNumber,
+      vm.inv_type as invoiceType,
+
+      vm.inv_date as billingDate,
+      vm.inv_vat as  totalTax,
+      vm.inv_cost as totalAmount,
+      vm.inv_sum as amountTax,
+      info.collector as collector,
+      info.collector_name as collectorName,
+      info.collect_type as collectType,
+      info.collect_source as collectSource,
+      info.collect_time as collectTime,
+      info.business_type as businessType,
+      info.storage_status as storageStatus,
+      vm.is_collect_all as checkStatus,
+      vm.INV_CONFIRM_STATUS as deductStatus,
+      vm.IS_SCANNER as deductType,
+
+      TO_CHAR(vm.ACCOUNT_TIME,'yyyy-mm-dd hh24:mi:ss') as accountTime,
+      vm.VOUCHER_NUM as voucherNum,
+
+      vm.inv_status as invoiceStatus,
+      info.image_path as imagePath,
+      decode(info.INVOICE_CODE,null,'0','1') as collectStatus,
+      vm.seller_name as sellerName,
+      info.red_or_blue as redOrBlue,
+      info.matter_status as matterStatus,
+      info.repeat_collect as repeatCollect,
+      vm.INV_DEDU_RESULT as invDeduResult
+
+      from t_scm_vat_main vm LEFT JOIN t_s_collect_info info ON vm.inv_kind=info.invoice_code and vm.inv_num=info.invoice_number
+      RIGHT JOIN t_s_expense_collect_relation  relation ON vm.inv_kind=relation.invoice_code
+      and vm.inv_num=relation.invoice_number where relation.pay_app_no = #{payAppNo,jdbcType=VARCHAR}
+    </if>
+    <if test="billCode != null and billCode != ''" >
+        and  BILL_CODE = #{billCode,jdbcType=VARCHAR}
+      </if>
+    <if test="invoiceCode != null and invoiceCode!=''" >
+      and vm.inv_kind = #{invoiceCode,jdbcType=VARCHAR}
+    </if>
+    <if test="invoiceNumber != null and invoiceNumber!=''" >
+      and vm.inv_num = #{invoiceNumber,jdbcType=VARCHAR}
+    </if>
+    <if test="invoiceType != null and invoiceType!=''" >
+      and vm.inv_type = #{invoiceType,jdbcType=VARCHAR}
+    </if>
+
+    <if test="collectStatus != null and collectStatus==1" >
+      and info.INVOICE_CODE is not null
+    </if>
+    <if test="collectStatus != null and collectStatus==0" >
+      and info.INVOICE_CODE is null
+    </if>
+
+    <if test="orgIdController != null and orgIdController!=''" >
+      and vm.sys_org_code IN
+      <foreach item="item" index="index" collection="orgIdController" open="(" separator="union all" close=")">
+        ${item}
+      </foreach>
+    </if>
+
+    <if test="collectType != null and collectType!=''" >
+      and info.collect_type = #{collectType,jdbcType=VARCHAR}
+    </if>
+    <if test="collectSource != null and collectSource!=''" >
+      and info.collect_source = #{collectSource,jdbcType=VARCHAR}
+    </if>
+    <if test="checkStatus != null and checkStatus!=''" >
+      and vm.is_collect_all = #{checkStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="deductStatus != null and deductStatus!=''" >
+      and vm.INV_CONFIRM_STATUS = #{deductStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="invDeduResult != null and invDeduResult!=''" >
+      and vm.INV_DEDU_RESULT = #{invDeduResult,jdbcType=VARCHAR}
+    </if>
+    <if test="storageStatus != null and storageStatus!=''" >
+      and info.storage_status = #{storageStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="businessType != null and businessType!=''" >
+      and info.business_type = #{businessType,jdbcType=VARCHAR}
+    </if>
+    <if test="collector != null and collector!=''" >
+      and info.collector = #{collector,jdbcType=VARCHAR}
+    </if>
+    <if test="collectorName != null and collectorName!=''" >
+      and info.collector_name like '%'||#{collectorName,jdbcType=VARCHAR}||'%'
+    </if>
+    <if test="deductType != null  and deductType!=''" >
+      and vm.IS_SCANNER = #{deductType,jdbcType=VARCHAR}
+    </if>
+    <if test="redOrBlue != null and redOrBlue!=''" >
+      and info.red_or_blue = #{redOrBlue,jdbcType=VARCHAR}
+    </if>
+    <if test="matterStatus != null and matterStatus!=''" >
+      and info.matter_status = #{matterStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="repeatCollect != null and repeatCollect!=''" >
+      and info.repeat_collect = #{repeatCollect,jdbcType=VARCHAR}
+    </if>
+    <if test="invoiceStatus != null and invoiceStatus!=''" >
+      and  vm.inv_status = #{invoiceStatus,jdbcType=VARCHAR}
+    </if>
+
+    <if test="sellerName != null and sellerName!=''" >
+      and  vm.seller_name like '%'||#{sellerName,jdbcType=VARCHAR}||'%'
+    </if>
+
+    <if test="createBy != null and createBy!=''" >
+      and  vm.CREATE_BY like '%'||#{createBy,jdbcType=VARCHAR}||'%'
+    </if>
+
+    <!--     <if test="billingDate!=null and billingDate!=''">
+             <![CDATA[ and DATE_FORMAT(vm.inv_date, '%Y-%m-%d') <= #{billingDate}]]>
+         </if>-->
+    <if test="billingBeginDate!=null and billingBeginDate!=''">
+      <![CDATA[ and to_char(vm.inv_date,'yyyy-mm-dd') >= #{billingBeginDate}]]>
+    </if>
+    <if test="billingEndDate!=null and billingEndDate!=''">
+      <![CDATA[ and to_char(vm.inv_date,'yyyy-mm-dd') <= #{billingEndDate}]]>
+    </if>
+
+    <if test="accountBeginDate!=null and accountBeginDate!=''">
+      and ex.accountTime is not null
+    </if>
+    <if test="accountEndDate!=null and accountEndDate!=''">
+      and ex.accountTime is not null
+    </if>
+
+    <if test="voucherNum != null and voucherNum!=''" >
+      and  ex.voucherNum is not null
+    </if>
+
+    <if test="invComment != null and invComment!=''">
+      and vm.INV_COMMENT like '%'||#{invComment,jdbcType=VARCHAR}||'%'
+    </if>
+
+    order by vm.inv_date desc, vm.id desc
+  </select>
+
+    <select id="queryInvFullList" resultType="com.baiwang.custom.common.model.MGQueryInvModel">
+        <if test="payAppNo == null or payAppNo==''" >
+            select
+            vm.id as id,
+            vm.inv_kind as invoiceCode,
+            vm.inv_num as invoiceNumber,
+            vm.inv_type as invoiceType,
+            TO_CHAR(vm.inv_date,'yyyy-mm-dd') as billingDate,
+            vm.inv_vat as  totalTax,
+            vm.inv_cost as totalAmount,
+            vm.inv_sum as amountTax,
+            info.collector as collector,
+            info.collector_name as collectorName,
+            info.collect_type as collectType,
+            info.collect_source as collectSource,
+            TO_CHAR(info.collect_time,'yyyy-mm-dd hh24:mi:ss') as collectTime,
+            info.business_type as businessType,
+            info.storage_status as storageStatus,
+            vm.is_collect_all as checkStatus,
+            vm.INV_CONFIRM_STATUS as deductStatus,
+            vm.IS_SCANNER as deductType,
+            vm.CREATE_BY as createBy,
+            ex.accountTime as accountTime,
+            ex.voucherNum as voucherNum,
+            ex.BILL_CODE as billCode，
+            vm.inv_status as invoiceStatus,
+            info.image_path as imagePath,
+            decode(info.INVOICE_CODE,null,'0','1') as collectStatus,
+            vm.seller_name as sellerName,
+            info.red_or_blue as redOrBlue,
+            info.matter_status as matterStatus,
+            info.repeat_collect as repeatCollect,
+            vm.INV_DEDU_RESULT as invDeduResult,
+
+            vm.CERTIFICATION_TYPE as certificationType,
+            vm.INV_DEDU_DATE as invDeduDate,
+            vm.INCOME_MONTH as incomeMonth,
+            vm.buyer_name as buyerName,
+            vm.buyer_taxno as buyerTaxno,
+            vm.BUYER_BANK as buyerBank,
+            vm.BUYER_ADDR_TEL as buyerAddrTel,
+            vm.SELLER_TAXNO as sellerTaxno,
+            vm.SELLER_BANK as sellerBank,
+            vm.SELLER_ADDR_TEL as sellerAddrTel,
+            vm.MACHINE_CODE as machineCode,
+            vm.CHECK_CODE as checkCode,
+            td.detailLineNum,
+            td.GNAME as gname,
+            td.GTYPE as gtype,
+            td.GPIECE as gpiece,
+            td.GNUM as gnum,
+            td.PRICE as price,
+            TO_CHAR(td.INV_COST,'99999999990.999999') as detailInvCost,
+            TO_CHAR(td.INV_VAT,'99999999990.999999')  as detailInvVat,
+            TO_CHAR(td.INV_RATE,'99999999990.99')  as detailInvRate
+
+            from t_scm_vat_main vm LEFT JOIN t_s_collect_info info ON vm.inv_kind=info.invoice_code and vm.inv_num=info.invoice_number
+            LEFT JOIN (select listagg(voucher_num,',') within group(order by voucher_num) voucherNum,listagg(to_char(ACCOUNT_TIME,'yyyy-mm-dd'),',') within group(order by ACCOUNT_TIME) accountTime,inv_kind,inv_num,BILL_CODE
+            from T_SCM_VAT_MAIN_EXTEND where 1=1 
+            <if test="accountBeginDate!=null and accountBeginDate!=''">
+                <![CDATA[ and to_char(ACCOUNT_TIME,'yyyy-mm-dd') >= #{accountBeginDate}]]>
+            </if>
+            <if test="accountEndDate!=null and accountEndDate!=''">
+                <![CDATA[ and to_char(ACCOUNT_TIME,'yyyy-mm-dd') <= #{accountEndDate}]]>
+            </if>
+            <if test="voucherNum != null and voucherNum!=''" >
+                and  VOUCHER_NUM like '%'||#{voucherNum,jdbcType=VARCHAR}||'%'
+            </if>
+            <if test="billCode != null and billCode!=''">
+                and  billCode = #{billCode,jdbcType=VARCHAR}
+            </if>
+            group by inv_kind,inv_num,BILL_CODE
+            ) ex on vm.inv_kind = ex.inv_kind and vm.INV_NUM = ex.inv_num
+            left join (SELECT ROW_NUMBER() OVER(PARTITION BY T .inv_num ORDER BY T.ID ASC ) AS detailLineNum,
+            T .* FROM t_scm_vat_detail t) td ON vm.inv_kind = td.inv_kind
+            AND vm.inv_num = td.inv_num
+            where 1=1
+        </if>
+        <if test="payAppNo != null and payAppNo!=''" >
+
+            select
+            vm.id as id,
+            vm.inv_kind as invoiceCode,
+            vm.inv_num as invoiceNumber,
+            vm.inv_type as invoiceType,
+
+            vm.inv_date as billingDate,
+            vm.inv_vat as  totalTax,
+            vm.inv_cost as totalAmount,
+            vm.inv_sum as amountTax,
+            info.collector as collector,
+            info.collector_name as collectorName,
+            info.collect_type as collectType,
+            info.collect_source as collectSource,
+            info.collect_time as collectTime,
+            info.business_type as businessType,
+            info.storage_status as storageStatus,
+            vm.is_collect_all as checkStatus,
+            vm.INV_CONFIRM_STATUS as deductStatus,
+            vm.IS_SCANNER as deductType,
+
+            TO_CHAR(vm.ACCOUNT_TIME,'yyyy-mm-dd hh24:mi:ss') as accountTime,
+            vm.VOUCHER_NUM as voucherNum,
+
+            vm.inv_status as invoiceStatus,
+            info.image_path as imagePath,
+            decode(info.INVOICE_CODE,null,'0','1') as collectStatus,
+            vm.seller_name as sellerName,
+            info.red_or_blue as redOrBlue,
+            info.matter_status as matterStatus,
+            info.repeat_collect as repeatCollect,
+            vm.INV_DEDU_RESULT as invDeduResult,
+
+            vm.CERTIFICATION_TYPE as certificationType,/*是否抵扣*/
+            vm.INV_DEDU_DATE as invDeduDate,/*抵扣日期*/
+            vm.INCOME_MONTH as incomeMonth,/*税款所属期*/
+            vm.buyer_name as buyerName,/*购方名称*/
+            vm.buyer_taxno as buyerTaxno,/*购方税号*/
+            vm.BUYER_BANK as buyerBank,/*购方开户行账户*/
+            vm.BUYER_ADDR_TEL as buyerAddrTel,/*购方地址电话*/
+            vm.SELLER_TAXNO as sellerTaxno,/*销方税号*/
+            vm.SELLER_BANK as sellerBank,/*销方开户行账户*/
+            vm.SELLER_ADDR_TEL as sellerAddrTel,/*销方地址电话*/
+            vm.MACHINE_CODE as machineCode,/*机器编码*/
+            vm.CHECK_CODE as checkCode,/*校验码*/
+            td.detailLineNum,
+            td.GNAME as gname,/*货物或应税劳务名称*/
+            td.GTYPE as gtype,/*规格型号*/
+            td.GPIECE as gpiece,/*单位*/
+            td.GNUM as gnum,/*数量*/
+            td.PRICE as price,/*单价*/
+            TO_CHAR(td.INV_COST,'99999999990.999999') as detailInvCost,
+            TO_CHAR(td.INV_VAT,'99999999990.999999')  as detailInvVat,
+            TO_CHAR(td.INV_RATE,'99999999990.99')  as detailInvRate
+
+            from t_scm_vat_main vm LEFT JOIN t_s_collect_info info ON vm.inv_kind=info.invoice_code and vm.inv_num=info.invoice_number
+            RIGHT JOIN t_s_expense_collect_relation  relation ON vm.inv_kind=relation.invoice_code
+            and vm.inv_num=relation.invoice_number
+            left join (SELECT ROW_NUMBER() OVER(PARTITION BY T .inv_num ORDER BY T.ID ASC ) AS detailLineNum,
+            T .* FROM t_scm_vat_detail t)  td ON vm.inv_kind = td.inv_kind
+            AND vm.inv_num = td.inv_num
+            where relation.pay_app_no = #{payAppNo,jdbcType=VARCHAR}
+        </if>
+
+
+        <if test="invoiceCode != null and invoiceCode!=''" >
+            and vm.inv_kind = #{invoiceCode,jdbcType=VARCHAR}
+        </if>
+        <if test="invoiceNumber != null and invoiceNumber!=''" >
+            and vm.inv_num = #{invoiceNumber,jdbcType=VARCHAR}
+        </if>
+        <if test="invoiceType != null and invoiceType!=''" >
+            and vm.inv_type = #{invoiceType,jdbcType=VARCHAR}
+        </if>
+        <if test="buyerTaxNo != null and buyerTaxNo!=''" >
+            and vm.buyer_taxno = #{buyerTaxNo,jdbcType=VARCHAR}
+        </if>
+
+        <if test="collectStatus != null and collectStatus==1" >
+            and info.INVOICE_CODE is not null
+        </if>
+        <if test="collectStatus != null and collectStatus==0" >
+            and info.INVOICE_CODE is null
+        </if>
+
+        <if test="orgIdController != null and orgIdController!=''" >
+            and vm.sys_org_code IN
+            <foreach item="item" index="index" collection="orgIdController" open="(" separator="union all" close=")">
+                ${item}
+            </foreach>
+        </if>
+
+        <if test="collectType != null and collectType!=''" >
+            and info.collect_type = #{collectType,jdbcType=VARCHAR}
+        </if>
+        <if test="collectSource != null and collectSource!=''" >
+            and info.collect_source = #{collectSource,jdbcType=VARCHAR}
+        </if>
+        <if test="checkStatus != null and checkStatus!=''" >
+            and vm.is_collect_all = #{checkStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="deductStatus != null and deductStatus!=''" >
+            and vm.INV_CONFIRM_STATUS = #{deductStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="invDeduResult != null and invDeduResult!=''" >
+            and vm.INV_DEDU_RESULT = #{invDeduResult,jdbcType=VARCHAR}
+        </if>
+        <if test="storageStatus != null and storageStatus!=''" >
+            and info.storage_status = #{storageStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="businessType != null and businessType!=''" >
+            and info.business_type = #{businessType,jdbcType=VARCHAR}
+        </if>
+        <if test="collector != null and collector!=''" >
+            and info.collector = #{collector,jdbcType=VARCHAR}
+        </if>
+        <if test="collectorName != null and collectorName!=''" >
+            and info.collector_name like '%'||#{collectorName,jdbcType=VARCHAR}||'%'
+        </if>
+        <if test="deductType != null  and deductType!=''" >
+            and vm.IS_SCANNER = #{deductType,jdbcType=VARCHAR}
+        </if>
+        <if test="redOrBlue != null and redOrBlue!=''" >
+            and info.red_or_blue = #{redOrBlue,jdbcType=VARCHAR}
+        </if>
+        <if test="matterStatus != null and matterStatus!=''" >
+            and info.matter_status = #{matterStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="repeatCollect != null and repeatCollect!=''" >
+            and info.repeat_collect = #{repeatCollect,jdbcType=VARCHAR}
+        </if>
+        <if test="invoiceStatus != null and invoiceStatus!=''" >
+            and  vm.inv_status = #{invoiceStatus,jdbcType=VARCHAR}
+        </if>
+
+        <if test="sellerName != null and sellerName!=''" >
+            and  vm.seller_name like '%'||#{sellerName,jdbcType=VARCHAR}||'%'
+        </if>
+
+        <if test="createBy != null and createBy!=''" >
+            and  vm.CREATE_BY like '%'||#{createBy,jdbcType=VARCHAR}||'%'
+        </if>
+
+        <!--     <if test="billingDate!=null and billingDate!=''">
+                 <![CDATA[ and DATE_FORMAT(vm.inv_date, '%Y-%m-%d') <= #{billingDate}]]>
+             </if>-->
+        <if test="billingBeginDate!=null and billingBeginDate!=''">
+            <![CDATA[ and to_char(vm.inv_date,'yyyy-mm-dd') >= #{billingBeginDate}]]>
+        </if>
+        <if test="billingEndDate!=null and billingEndDate!=''">
+            <![CDATA[ and to_char(vm.inv_date,'yyyy-mm-dd') <= #{billingEndDate}]]>
+        </if>
+
+        <if test="accountBeginDate!=null and accountBeginDate!=''">
+            and ex.accountTime is not null
+        </if>
+        <if test="accountEndDate!=null and accountEndDate!=''">
+            and ex.accountTime is not null
+        </if>
+
+        <if test="voucherNum != null and voucherNum!=''" >
+            and  ex.voucherNum is not null
+        </if>
+
+        order by vm.inv_date desc, vm.id desc
+    </select>
+  <!-- 异常列表查询 -->
+
+	<select id="queryUnusualList"  resultType="com.baiwang.custom.common.model.MGBwResponesUnusual">
+        select
+        t.id as "id",
+        t.INV_CONFIRM_STATUS as "invconfirmstatus",
+        t.INV_DEDU_RESULT as "invdeduresult",
+        t.BUYER_TAXNO as "buyertaxno",
+        t.INV_STATUS as "invoicestatus",
+        t.ERR_UPDATE_TIME as "errupdatetime",
+        t.SELLER_NAME as "sellername",
+        t.INV_VAT as "invoicetotaltax",
+        to_char(t.inv_date,'yyyy-MM-dd') as "invoicedate",
+        t.BUYER_NAME as "buyername",
+        t.INV_KIND as "invoicecode",
+        t.INV_NUM as "invoiceno",
+        t.inv_sum as "invoicetotalpricetax",
+        t.INCOME_MONTH as "incomemonth",
+        t.SELLER_TAXNO as "sellertaxno",
+        t.INV_COST as "invoicetotalprice",
+        t.INV_TYPE as "invoicetypecode",
+        t.RECEV_FLAG as "recevflag",
+        t.CHECK_ERR_CODE as checkErrCode,
+        ex.finslVoucherNo as finslVoucherNo,
+        ex.billCode as billCode,
+        ex.voucherDate as voucherDate
+        FROM	T_SCM_VAT_MAIN t
+        LEFT JOIN (select listagg(voucher_num,',') within group(order by voucher_num) finslVoucherNo,listagg(bill_code,',') within group(order by bill_code) billCode,listagg(voucher_date,',') within group(order by voucher_date) voucherDate,inv_kind,inv_num
+        from T_SCM_VAT_MAIN_EXTEND where 1=1
+        <if test="queryParams.finslVoucherNo != null and queryParams.finslVoucherNo !=''" >
+            and  VOUCHER_NUM = #{queryParams.finslVoucherNo,jdbcType=VARCHAR}
+        </if>
+        <if test="queryParams.billCode != null and queryParams.billCode!=''">
+            and  BILL_CODE = #{queryParams.billCode,jdbcType=VARCHAR}
+        </if>
+        <if test="queryParams.voucherDate != null and queryParams.voucherDate!=''">
+            and  VOUCHER_DATE = #{queryParams.voucherDate,jdbcType=VARCHAR}
+        </if>
+        group by inv_kind,inv_num
+        ) ex on t.inv_kind = ex.inv_kind and t.INV_NUM = ex.inv_num
+        WHERE 1=1
+        <if test="queryParams.orgIdStr != null and queryParams.orgIdStr!=''" >
+       and t.SYS_ORG_CODE IN
+       <foreach item="item" index="index" collection="queryParams.orgIdStr" open="(" separator="union all" close=")">
+       	${item}
+       </foreach>
+    </if>
+    <if test="queryParams.finslVoucherNo != null and queryParams.finslVoucherNo !=''" >
+            and  finslVoucherNo = #{queryParams.finslVoucherNo,jdbcType=VARCHAR}
+        </if>
+        <if test="queryParams.billCode != null and queryParams.billCode!=''">
+            and  billCode = #{queryParams.billCode,jdbcType=VARCHAR}
+        </if>
+        <if test="queryParams.voucherDate != null and queryParams.voucherDate!=''">
+            and  voucherDate = #{queryParams.voucherDate,jdbcType=VARCHAR}
+        </if>
+    <if test="queryParams.buyerTaxNo != null and queryParams.buyerTaxNo!=''" >
+       and t.BUYER_TAXNO = #{queryParams.buyerTaxNo,jdbcType=VARCHAR}
+    </if>
+	<if test="queryParams.sellerName != null and queryParams.sellerName!=''" >
+       and t.SELLER_NAME = #{queryParams.sellerName,jdbcType=VARCHAR}
+    </if>
+    <if test="queryParams.recevFlag != null and queryParams.recevFlag!=''" >
+       and t.RECEV_FLAG = #{queryParams.recevFlag,jdbcType=CHAR}
+    </if>
+    <if test="queryParams.invConfirmStatus != null and queryParams.invConfirmStatus!=''" >
+       and t.INV_CONFIRM_STATUS = #{queryParams.invConfirmStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="queryParams.invoiceCode != null and queryParams.invoiceCode!=''" >
+       and t.INV_KIND = #{queryParams.invoiceCode,jdbcType=VARCHAR}
+    </if>
+    <if test="queryParams.invoiceNo != null and queryParams.invoiceNo!=''" >
+       and t.INV_NUM = #{queryParams.invoiceNo,jdbcType=VARCHAR}
+    </if>
+
+    <if test="queryParams.invoiceTypeCode != null and queryParams.invoiceTypeCode!=''" >
+       and t.inv_type = #{queryParams.invoiceTypeCode,jdbcType=VARCHAR}
+    </if>
+
+    <if test="queryParams.incomeMonth != null and queryParams.incomeMonth!=''" >
+       and t.INCOME_MONTH = #{queryParams.incomeMonth,jdbcType=VARCHAR}
+    </if>
+    <if test="queryParams.invDeduResult != null and queryParams.invDeduResult!=''" >
+       and t.INV_DEDU_RESULT = #{queryParams.invDeduResult,jdbcType=VARCHAR}
+    </if>
+	<if test="queryParams.checkErrCode != null and queryParams.checkErrCode!=''" >
+       and
+       <foreach item="item" index="index" collection="queryParams.checkErrCode" open="(" separator="or" close=")">
+        t.CHECK_ERR_CODE like CONCAT(CONCAT('%',${item}),'%')
+       </foreach>
+    </if>
+    <!-- 可抵扣不可抵扣状态 -->
+     <if test="queryParams.errUpdateTimeBegin!=null and queryParams.errUpdateTimeBegin!=''">
+      <![CDATA[ and to_char(t.err_update_time,'yyyy-mm-dd') >= #{queryParams.errUpdateTimeBegin}]]>
+    </if>
+    <if test="queryParams.errUpdateTimeEnd!=null and queryParams.errUpdateTimeEnd!=''">
+      <![CDATA[ and to_char(t.err_update_time,'yyyy-mm-dd') <= #{queryParams.errUpdateTimeEnd}]]>
+    </if>
+	order by t.err_update_time desc,t.id desc
+	</select>
+
+	<!-- 逾期发票查询 -->
+    <!--<if test="finslVoucherNo != null and finslVoucherNo !=''" >-->
+    <!--and  ex.finslVoucherNo = #{queryParams.finslVoucherNo,jdbcType=VARCHAR}-->
+    <!--</if>-->
+    <!--<if test="billCode != null and billCode!=''">-->
+    <!--and  ex.billCode = #{queryParams.billCode,jdbcType=VARCHAR}-->
+    <!--</if>-->
+    <!--<if test="voucherDate != null and voucherDate!=''">-->
+    <!--and  ex.voucherDate = #{queryParams.voucherDate,jdbcType=VARCHAR}-->
+    <!--</if>-->
+	<select id="queryOverDueList" resultType="com.baiwang.custom.common.model.MGOverDueModel">
+	SELECT
+	t.ID AS "id",
+	t.INV_KIND AS "invKind",
+	t.INV_NUM AS "invNum",
+	to_char(t.inv_date,'yyyy-MM-dd') AS "invDate",
+	t.BUYER_TAXNO AS "buyerTaxnob",
+	t.BUYER_NAME AS "buyerName",
+	t.SELLER_TAXNO AS "sellerTaxno",
+	t.SELLER_NAME AS "sellerName",
+	t.INV_COST AS "invCost",
+	T.INV_VAT AS "invVat",
+	t.INV_SUM AS "invSum",
+    ex.finslVoucherNo as finslVoucherNo,
+    ex.billCode as billCode,
+    ex.voucherDate as voucherDate
+    FROM	T_SCM_VAT_MAIN t
+    LEFT JOIN (select listagg(voucher_num,',') within group(order by voucher_num) finslVoucherNo,listagg(bill_code,',') within group(order by bill_code) billCode,listagg(voucher_date,',') within group(order by voucher_date) voucherDate,inv_kind,inv_num
+    from T_SCM_VAT_MAIN_EXTEND where 1=1
+        <if test="queryParams.finslVoucherNo != null and queryParams.finslVoucherNo !=''" >
+            and  VOUCHER_NUM = #{queryParams.finslVoucherNo,jdbcType=VARCHAR}
+        </if>
+        <if test="queryParams.billCode != null and queryParams.billCode!=''">
+            and  BILL_CODE = #{queryParams.billCode,jdbcType=VARCHAR}
+        </if>
+        <if test="queryParams.voucherDate != null and queryParams.voucherDate!=''">
+            and  VOUCHER_DATE = #{queryParams.voucherDate,jdbcType=VARCHAR}
+        </if>
+        group by inv_kind,inv_num
+        ) ex on t.inv_kind = ex.inv_kind and t.INV_NUM = ex.inv_num
+        WHERE t.INV_DEDU_RESULT IN (0,2)
+     <if test="queryParams.orgIdStr != null and queryParams.orgIdStr!=''" >
+       and t.SYS_ORG_CODE IN
+       <foreach item="item" index="index" collection="queryParams.orgIdStr" open="(" separator="union all" close=")">
+       	${item}
+       </foreach>
+    </if>
+     <if test="queryParams.buyerTaxno != null and queryParams.buyerTaxno!=''" >
+       and t.BUYER_TAXNO = #{queryParams.buyerTaxno,jdbcType=VARCHAR}
+    </if>
+	<if test="queryParams.sellerName != null and queryParams.sellerName!=''" >
+       and t.SELLER_NAME = #{queryParams.sellerName,jdbcType=VARCHAR}
+    </if>
+	<if test="queryParams.invConfirmStatus != null and queryParams.invConfirmStatus!=''" >
+       and t.INV_CONFIRM_STATUS = #{queryParams.invConfirmStatus,jdbcType=VARCHAR}
+    </if>
+     <if test="queryParams.startDate!=null and queryParams.startDate!=''">
+      <![CDATA[ and to_char(t.inv_date,'yyyy-mm-dd') >= #{queryParams.startDate}]]>
+    </if>
+    <if test="queryParams.endDate!=null and queryParams.endDate!=''">
+      <![CDATA[ and to_char(t.inv_date,'yyyy-mm-dd') < #{queryParams.endDate}]]>
+    </if>
+     <if test="queryParams.finslVoucherNo != null and queryParams.finslVoucherNo !=''" >
+            and  finslVoucherNo = #{queryParams.finslVoucherNo,jdbcType=VARCHAR}
+        </if>
+        <if test="queryParams.billCode != null and queryParams.billCode!=''">
+            and  billCode = #{queryParams.billCode,jdbcType=VARCHAR}
+        </if>
+        <if test="queryParams.voucherDate != null and queryParams.voucherDate!=''">
+            and  voucherDate = #{queryParams.voucherDate,jdbcType=VARCHAR}
+        </if>
+    order by t.inv_date desc,t.id desc
+	</select>
+
+</mapper>

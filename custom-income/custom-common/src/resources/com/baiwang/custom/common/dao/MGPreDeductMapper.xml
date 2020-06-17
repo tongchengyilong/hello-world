@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.baiwang.custom.common.dao.MGPreDeductMapper">
+
+
+    <select id="queryCollectInfo" resultType="com.baiwang.custom.common.entity.MGTScmVatMain" parameterType="java.util.Map">
+    	select
+        	tsvm.ID,
+        	tsvm.INV_TYPE,
+        	tsvm.BUYER_TAXNO,
+        	tsvm.INV_KIND,
+        	tsvm.INV_NUM,
+        	tsvm.INV_COST,
+        	tsvm.INV_SUM,
+        	tsvm.INV_VAT,
+        	tsvm.INV_DATE,
+        	tsvm.BUYER_ADDR_TEL,
+        	tsvm.BUYER_BANK,
+        	tsvm.BUYER_NAME,
+        	tsvm.SELLER_TAXNO,
+        	tsvm.SELLER_NAME,
+        	tsvm.SELLER_ADDR_TEL,
+        	tsvm.SELLER_BANK，
+			ex.accountTime as accountTimeStr,
+			ex.voucherNum as voucherNum,
+            ex.BILL_CODE as billCode
+        from t_scm_vat_main tsvm
+		LEFT JOIN (select listagg(voucher_num,',') within group(order by voucher_num) voucherNum,listagg(to_char(ACCOUNT_TIME,'yyyy-mm-dd'),',') within group(order by ACCOUNT_TIME) accountTime,inv_kind,inv_num,BILL_CODE
+		from T_SCM_VAT_MAIN_EXTEND where 1=1 
+		<if test="accountBeginDate!=null and accountBeginDate!=''">
+			<![CDATA[ and to_char(ACCOUNT_TIME,'yyyy-mm-dd') >= #{accountBeginDate}]]>
+		</if>
+		<if test="accountEndDate!=null and accountEndDate!=''">
+			<![CDATA[ and to_char(ACCOUNT_TIME,'yyyy-mm-dd') <= #{accountEndDate}]]>
+		</if>
+		<if test="voucherNum != null and voucherNum!=''" >
+			and  VOUCHER_NUM like '%'||#{voucherNum,jdbcType=VARCHAR}||'%'
+		</if>
+        <if test="billCode != null and billCode!=''" >
+            and  BILL_CODE = #{billCode,jdbcType=VARCHAR}
+        </if>
+		group by inv_kind,inv_num,BILL_CODE
+		) ex on tsvm.inv_kind = ex.inv_kind and tsvm.INV_NUM = ex.inv_num
+		where exists
+    	(select * from t_s_collect_info s where s.invoice_code = tsvm.inv_kind and s.invoice_number = tsvm.inv_num)
+        and inv_status = '0' and ((inv_confirm_status='0' and inv_dedu_result = '0') or ( inv_confirm_status='3' and inv_dedu_result = '2'))
+        and (inv_type = '01' or inv_type = '03' or (inv_type = '14' and tsvm.tollsign = '06'))
+        and PRE_DEDUCT_FLAG = '1'
+        <if test="billCode != null and billCode!=''" >
+            and  BILL_CODE = #{billCode,jdbcType=VARCHAR}
+        </if>
+        <if test="invKind!=null and invKind!=''">
+            and tsvm.inv_kind = #{invKind}
+        </if>
+        <if test="invNum!=null and invNum!=''">
+            and tsvm.inv_num = #{invNum}
+        </if>
+        <if test="buyerTaxNo!=null and buyerTaxNo!=''">
+            and tsvm.buyer_taxno = #{buyerTaxNo}
+        </if>
+        <if test="sysCompanyCode!=null and sysCompanyCode!=''">
+            and tsvm.sys_company_code = #{sysCompanyCode}
+        </if>
+        <if test="sysOrgCode!=null and sysOrgCode!=''">
+            and sys_org_code in
+            <foreach item="item" index="index" collection="sysOrgCode" open="(" separator="union all" close=")">
+                ${item}
+            </foreach>
+        </if>
+        <if test="invDate_begin!=null and invDate_begin!=''">
+            and tsvm.inv_date &gt;= to_date(#{invDate_begin},'yyyy-MM-dd')
+        </if>
+        <if test="invDate_end!=null and invDate_end!=''">
+            and tsvm.inv_date &lt;= to_date(#{invDate_end},'yyyy-MM-dd')
+        </if>
+        <if test="sellerName!=null and sellerName!=''">
+        	and tsvm.SELLER_NAME like CONCAT(CONCAT('%',#{sellerName}),'%')
+        </if>
+    	<if test="isScanner!=null and isScanner!=''">
+        	and tsvm.is_scanner = #{isScanner}
+        </if>
+		<if test="accountBeginDate!=null and accountBeginDate!=''">
+			and ex.accountTime is not null
+		</if>
+		<if test="accountEndDate!=null and accountEndDate!=''">
+			and ex.accountTime is not null
+		</if>
+
+		<if test="voucherNum != null and voucherNum!=''" >
+			and  ex.voucherNum is not null
+		</if>
+    </select>
+    
+    <select id="queryCheckDeductNotExistCollectInfo" resultType="com.baiwang.custom.common.entity.MGTScmVatMain" parameterType="java.util.Map">
+    	select 
+			tsvm.ID,
+        	tsvm.INV_TYPE,
+        	tsvm.BUYER_TAXNO,
+        	tsvm.INV_KIND,
+        	tsvm.INV_NUM,
+        	tsvm.INV_COST,
+        	tsvm.INV_SUM,
+        	tsvm.INV_VAT,
+        	tsvm.INV_DATE,
+        	tsvm.BUYER_ADDR_TEL,
+        	tsvm.BUYER_BANK,
+        	tsvm.BUYER_NAME,
+        	tsvm.SELLER_TAXNO,
+        	tsvm.SELLER_NAME,
+        	tsvm.SELLER_ADDR_TEL,
+        	tsvm.SELLER_BANK,
+			ex.accountTime as accountTimeStr,
+			ex.voucherNum as voucherNum,
+            ex.BILL_CODE as billCode
+ 		from t_scm_vat_main tsvm
+		LEFT JOIN (select listagg(voucher_num,',') within group(order by voucher_num) voucherNum,listagg(to_char(ACCOUNT_TIME,'yyyy-mm-dd'),',') within group(order by ACCOUNT_TIME) accountTime,inv_kind,inv_num,BILL_CODE
+		from T_SCM_VAT_MAIN_EXTEND where 1=1
+		<if test="accountBeginDate!=null and accountBeginDate!=''">
+			<![CDATA[ and to_char(ACCOUNT_TIME,'yyyy-mm-dd') >= #{accountBeginDate}]]>
+		</if>
+		<if test="accountEndDate!=null and accountEndDate!=''">
+			<![CDATA[ and to_char(ACCOUNT_TIME,'yyyy-mm-dd') <= #{accountEndDate}]]>
+		</if>
+		<if test="voucherNum != null and voucherNum!=''" >
+			and  VOUCHER_NUM like '%'||#{voucherNum,jdbcType=VARCHAR}||'%'
+		</if>
+        <if test="billCode != null and billCode!=''" >
+            and  BILL_CODE = #{billCode,jdbcType=VARCHAR}
+        </if>
+		group by inv_kind,inv_num,BILL_CODE
+		) ex on tsvm.inv_kind = ex.inv_kind and tsvm.INV_NUM = ex.inv_num
+		where
+    		not exists
+    	(select * from t_s_collect_info s where s.invoice_code = tsvm.inv_kind and s.invoice_number = tsvm.inv_num)
+    	and inv_status = '0' and ((inv_confirm_status='0' and inv_dedu_result = '0') or ( inv_confirm_status='3' and inv_dedu_result = '2'))
+        and (inv_type = '01' or inv_type = '03' or (inv_type = '14' and tsvm.tollsign = '06'))
+        and PRE_DEDUCT_FLAG = '1'
+        <if test="billCode != null and billCode!=''" >
+            and  BILL_CODE = #{billCode,jdbcType=VARCHAR}
+        </if>
+    	<if test="invKind!=null and invKind!=''">
+            and tsvm.inv_kind = #{invKind}
+        </if>
+        <if test="invNum!=null and invNum!=''">
+            and tsvm.inv_num = #{invNum}
+        </if>
+        <if test="buyerTaxNo!=null and buyerTaxNo!=''">
+            and tsvm.buyer_taxno = #{buyerTaxNo}
+        </if>
+        <if test="sysCompanyCode!=null and sysCompanyCode!=''">
+            and tsvm.sys_company_code = #{sysCompanyCode}
+        </if>
+        <if test="sysOrgCode!=null and sysOrgCode!=''">
+            and sys_org_code in
+            <foreach item="item" index="index" collection="sysOrgCode" open="(" separator="union all" close=")">
+                ${item}
+            </foreach>
+        </if>
+        <if test="invDate_begin!=null and invDate_begin!=''">
+            and tsvm.inv_date &gt;= to_date(#{invDate_begin},'yyyy-MM-dd')
+        </if>
+        <if test="invDate_end!=null and invDate_end!=''">
+            and tsvm.inv_date &lt;= to_date(#{invDate_end},'yyyy-MM-dd')
+        </if>
+        <if test="sellerName!=null and sellerName!=''">
+        	and tsvm.SELLER_NAME like CONCAT(CONCAT('%',#{sellerName}),'%')
+        </if>  
+        <if test="isScanner!=null and isScanner!=''">
+        	and tsvm.is_scanner = #{isScanner}
+        </if>
+
+		<if test="accountBeginDate!=null and accountBeginDate!=''">
+			and ex.accountTime is not null
+		</if>
+		<if test="accountEndDate!=null and accountEndDate!=''">
+			and ex.accountTime is not null
+		</if>
+
+		<if test="voucherNum != null and voucherNum!=''" >
+			and  ex.voucherNum is not null
+		</if>
+
+    </select>
+    
+    <select id="queryCheckDeductList"  resultType="com.baiwang.custom.common.entity.MGTScmVatMain" parameterType="java.util.Map">
+        select
+        	tsvm.ID,
+        	tsvm.INV_TYPE,
+        	tsvm.BUYER_TAXNO,
+        	tsvm.INV_KIND,
+        	tsvm.INV_NUM,
+        	tsvm.INV_COST,
+        	tsvm.INV_SUM,
+        	tsvm.INV_VAT,
+        	tsvm.INV_DATE,
+        	tsvm.BUYER_ADDR_TEL,
+        	tsvm.BUYER_BANK,
+        	tsvm.BUYER_NAME,
+        	tsvm.SELLER_TAXNO,
+        	tsvm.SELLER_NAME,
+        	tsvm.SELLER_ADDR_TEL,
+        	tsvm.SELLER_BANK,
+        	tsvm.IS_SCANNER,
+            tsvm.CERTIFICATION_WAY,
+        	tsci.INVOICE_CODE as taxInvoiceCode,
+        	tsci.INVOICE_NUMBER as taxInvoiceNumber,
+			ex.accountTime as accountTimeStr,
+			ex.voucherNum as voucherNum,
+            ex.BILL_CODE as billCode
+        from t_scm_vat_main tsvm left join t_s_collect_info tsci on tsci.invoice_code = tsvm.inv_kind and tsci.invoice_number = tsvm.inv_num
+		LEFT JOIN (select listagg(voucher_num,',') within group(order by voucher_num) voucherNum,listagg(to_char(ACCOUNT_TIME,'yyyy-mm-dd'),',') within group(order by ACCOUNT_TIME) accountTime,inv_kind,inv_num,BILL_CODE
+		from T_SCM_VAT_MAIN_EXTEND where 1=1 
+		<if test="accountBeginDate!=null and accountBeginDate!=''">
+			<![CDATA[ and to_char(ACCOUNT_TIME,'yyyy-mm-dd') >= #{accountBeginDate}]]>
+		</if>
+		<if test="accountEndDate!=null and accountEndDate!=''">
+			<![CDATA[ and to_char(ACCOUNT_TIME,'yyyy-mm-dd') <= #{accountEndDate}]]>
+		</if>
+		<if test="voucherNum != null and voucherNum!=''" >
+			and  VOUCHER_NUM like '%'||#{voucherNum,jdbcType=VARCHAR}||'%'
+		</if>
+        <if test="billCode != null and billCode!=''" >
+            and  BILL_CODE = #{billCode,jdbcType=VARCHAR}
+        </if>
+		group by inv_kind,inv_num,BILL_CODE
+		) ex on tsvm.inv_kind = ex.inv_kind and tsvm.INV_NUM = ex.inv_num
+        where inv_status = '0' and ((inv_confirm_status='0' and inv_dedu_result = '0') or ( inv_confirm_status='3' and inv_dedu_result = '2'))
+        and (inv_type = '01' or inv_type = '03' or (inv_type = '14' and tsvm.tollsign = '06'))
+        and PRE_DEDUCT_FLAG = '1'
+         <if test="billCode != null and billCode!=''" >
+            and  BILL_CODE = #{billCode,jdbcType=VARCHAR}
+        </if>
+        <if test="invKind!=null and invKind!=''">
+            and tsvm.inv_kind = #{invKind}
+        </if>
+        <if test="invNum!=null and invNum!=''">
+            and tsvm.inv_num = #{invNum}
+        </if>
+        <if test="buyerTaxNo!=null and buyerTaxNo!=''">
+            and tsvm.buyer_taxno = #{buyerTaxNo}
+        </if>
+        <if test="sysCompanyCode!=null and sysCompanyCode!=''">
+            and tsvm.sys_company_code = #{sysCompanyCode}
+        </if>
+        <if test="sysOrgCode!=null and sysOrgCode!=''">
+            and sys_org_code in
+            <foreach item="item" index="index" collection="sysOrgCode" open="(" separator="union all" close=")">
+                ${item}
+            </foreach>
+        </if>
+        <if test="invDate_begin!=null and invDate_begin!=''">
+            and tsvm.inv_date &gt;= to_date(#{invDate_begin},'yyyy-MM-dd')
+        </if>
+        <if test="invDate_end!=null and invDate_end!=''">
+            and tsvm.inv_date &lt;= to_date(#{invDate_end},'yyyy-MM-dd')
+        </if>
+        <if test="sellerName!=null and sellerName!=''">
+        	and tsvm.SELLER_NAME like CONCAT(CONCAT('%',#{sellerName}),'%')
+        </if>
+        <if test="isScanner!=null and isScanner!=''">
+        	and tsvm.is_scanner = #{isScanner}
+        </if>
+		<if test="accountBeginDate!=null and accountBeginDate!=''">
+			and ex.accountTime is not null
+		</if>
+		<if test="accountEndDate!=null and accountEndDate!=''">
+			and ex.accountTime is not null
+		</if>
+		<if test="voucherNum != null and voucherNum!=''" >
+			and  ex.voucherNum is not null
+		</if>
+    </select>
+
+</mapper>
